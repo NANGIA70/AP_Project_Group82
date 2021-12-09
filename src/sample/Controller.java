@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 import javafx.util.Duration;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-public class Controller implements Initializable  {
+public class Controller implements Initializable {
     private int count;
     @FXML
     private ImageView image1;
@@ -61,9 +61,9 @@ public class Controller implements Initializable  {
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1), e ->
-        {
-            translate_an_object(image1, 20000, 0, 2000).play();
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1), e -> {
+            translate_an_object(gr1, 400, 200, 1500).play();
         }));
+        timeline.play();
     }
 }
