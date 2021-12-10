@@ -23,6 +23,7 @@ import javafx.animation.Timeline;
 
 public class Controller implements Initializable {
     private boolean flag = false;
+    private boolean pause_flag = false;
     private int count = 0;
     @FXML
     private AnchorPane content;
@@ -68,6 +69,8 @@ public class Controller implements Initializable {
     private ImageView load;
     @FXML
     private ImageView pause;
+    @FXML
+    private ImageView exit;
 
     public static TranslateTransition translate_an_object(Node obj, double x_cord, double y_cord, int duration_set) {
         Duration animation_time = Duration.millis(duration_set);
@@ -93,7 +96,7 @@ public class Controller implements Initializable {
     }
 
     public void move_down_menu(){
-        Duration animation_time = Duration.millis(1000);
+        Duration animation_time = Duration.millis(10);
         TranslateTransition translate_object = new TranslateTransition();
         translate_object.setDuration(animation_time);
         translate_object.setNode(group_menu);
@@ -101,7 +104,33 @@ public class Controller implements Initializable {
         translate_object.setByY(500);
         translate_object.play();
     }
-
+    public void move_up_menu(){
+        Duration animation_time = Duration.millis(1);
+        TranslateTransition translate_object = new TranslateTransition();
+        translate_object.setDuration(animation_time);
+        translate_object.setNode(group_menu);
+        translate_object.setByX(0);
+        translate_object.setByY(-500);
+        translate_object.play();
+    }
+    public void move_down_exit(){
+        Duration animation_time = Duration.millis(10);
+        TranslateTransition translate_object = new TranslateTransition();
+        translate_object.setDuration(animation_time);
+        translate_object.setNode(exit);
+        translate_object.setByX(0);
+        translate_object.setByY(500000);
+        translate_object.play();
+    }
+    public void move_down_load(){
+        Duration animation_time = Duration.millis(10);
+        TranslateTransition translate_object = new TranslateTransition();
+        translate_object.setDuration(animation_time);
+        translate_object.setNode(load);
+        translate_object.setByX(0);
+        translate_object.setByY(500000);
+        translate_object.play();
+    }
     public  void move_orc() {
         final Timeline timeline = new Timeline();
         Duration animation_time = Duration.millis(1000);
@@ -119,7 +148,7 @@ public class Controller implements Initializable {
         javafx.application.Platform.exit();
     }
     public void move_ClickHero() {
-        if(flag) {
+        if(flag && !pause_flag) {
             Duration animation_time = Duration.millis(500);
             TranslateTransition translate_object = new TranslateTransition();
             translate_object.setDuration(animation_time);
@@ -173,9 +202,33 @@ public class Controller implements Initializable {
         translate_object3.play();
         move_hero();
         move_orc();
-        move_down_menu();
+        move_pause_button_down();
+        move_down_exit();
+        move_down_load();
     }
-
+    public void move_pause_button_down()
+    {
+        Duration animation_time = Duration.millis(10);
+        TranslateTransition translate_object = new TranslateTransition();
+        translate_object.setDuration(animation_time);
+        translate_object.setNode(pause);
+        translate_object.setByX(0);
+        translate_object.setByY(90);
+        translate_object.play();
+    }
+    public void pause_menu()
+    {
+        if(pause_flag !=true)
+        {
+            pause_flag = true;
+            move_down_menu();
+        }
+    }
+    public void resume_action()
+    {
+        move_up_menu();
+        pause_flag = false;
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 //        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1), e -> {

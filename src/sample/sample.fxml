@@ -69,7 +69,7 @@
                   <Image url="@../assets/assets/Menu_background.jpg" />
                </image>
             </ImageView>
-            <ImageView fx:id="resume" fitHeight="150.0" fitWidth="200.0" layoutX="-45.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="resume" fitHeight="150.0" fitWidth="200.0" layoutX="-45.0" layoutY="56.0" onMousePressed="#resume_action" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/assets/Resume.jpg" />
                </image>
@@ -86,7 +86,7 @@
             </ImageView>
          </children>
       </Group>
-      <ImageView fx:id="pause" fitHeight="98.0" fitWidth="56.0" layoutX="1113.0" layoutY="-80.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="pause" fitHeight="98.0" fitWidth="56.0" layoutX="1113.0" layoutY="-80.0" onMousePressed="#pause_menu" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/assets/Pause.png" />
          </image>
