@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="content" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <ImageView fx:id="background" fitHeight="800.0" fitWidth="1200.0" layoutX="-1.0" layoutY="-2.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/Background.jpeg" />
+         </image>
+      </ImageView>
+      <Label fx:id="distance" layoutX="579.0" layoutY="7.0" prefHeight="97.0" prefWidth="29.0" text="0" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Palatino Linotype" size="58.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="play" fitHeight="57.0" fitWidth="140.0" layoutX="535.0" layoutY="546.0" onMousePressed="#startPlay" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
+         <image>
+            <Image url="@../Images/Green-play-button-icon-on-transparent-background-PNG.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="island2" fitHeight="150.0" fitWidth="200.0" layoutX="500.0" layoutY="385.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
+         <image>
+            <Image url="@../assets/assets/Islands2.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="hero" fitHeight="48.0" fitWidth="55.0" layoutX="515.0" layoutY="307.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
+         <image>
+            <Image url="@../assets/assets/Helmet4.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="island3" fitHeight="150.0" fitWidth="200.0" layoutX="883.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
+         <image>
+            <Image url="@../assets/assets/Islands1.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="island1" fitHeight="150.0" fitWidth="200.0" layoutX="133.0" layoutY="396.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
+         <image>
+            <Image url="@../assets/assets/Islands3.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="chest" fitHeight="50.0" fitWidth="96.0" layoutX="915.0" layoutY="304.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
+         <image>
+            <Image url="@../assets/assets/ChestClosed.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="tree" fitHeight="150.0" fitWidth="200.0" layoutX="125.0" layoutY="178.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
+         <image>
+            <Image url="@../assets/assets/Tree1.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="exit" fitHeight="69.0" fitWidth="193.0" layoutX="9.0" layoutY="544.0" onMousePressed="#exit_game" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/assets/Exit.jpg" />
+         </image></ImageView>
+      <ImageView fx:id="orc" fitHeight="75.0" fitWidth="82.0" layoutX="272.0" layoutY="292.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/assets/Orc3.png" />
+         </image>
+      </ImageView>
+      <Group fx:id="group_menu" layoutX="546.0" layoutY="-400.0">
+         <children>
+            <ImageView fx:id="Menu_background" fitHeight="372.0" fitWidth="261.0" layoutX="-66.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/assets/Menu_background.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="resume" fitHeight="150.0" fitWidth="200.0" layoutX="-45.0" layoutY="56.0" onMousePressed="#resume_action" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/assets/Resume.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="save" fitHeight="150.0" fitWidth="200.0" layoutX="-45.0" layoutY="151.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/assets/Save.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="quit" fitHeight="150.0" fitWidth="200.0" layoutX="-45.0" layoutY="245.0" onMousePressed="#exit_game" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/assets/Exit.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <ImageView fx:id="pause" fitHeight="98.0" fitWidth="56.0" layoutX="1113.0" layoutY="-80.0" onMousePressed="#pause_menu" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/assets/Pause.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="load" fitHeight="150.0" fitWidth="200.0" layoutX="955.0" layoutY="541.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/assets/Load.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="coin" fitHeight="43.0" fitWidth="36.0" layoutX="73.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/assets/Coin.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="coin_count" layoutX="36.0" layoutY="30.0" text="0" textFill="WHITE">
+         <font>
+            <Font name="Palatino Linotype" size="32.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="heading" fitHeight="171.0" fitWidth="270.0" layoutX="466.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/willHeroHeadingCrop.jpg" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
