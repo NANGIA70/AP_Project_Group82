@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -156,26 +157,10 @@ public class Controller implements Initializable {
             translate_object.setByX(100);
             translate_object.setByY(0);
             translate_object.play();
-            count += 1;
-            if(count == 4) {
-                TranslateTransition translate_object1 = new TranslateTransition();
-                translate_object1.setDuration(animation_time);
-                translate_object1.setNode(chest);
-                translate_object1.setByX(1000000000);
-                translate_object1.setByY(0);
-                translate_object1.play();
-//                Image myImage = new Image(getClass().getResourceAsStream("ChestOpen.png"));
-//                chest.setImage(myImage);
+            if(hero.getBoundsInParent().intersects(chest.getBoundsInParent())) {
+                File file = new File("src/sample/ChestOpen.png");
+                chest.setImage(new Image(file.toURI().toString()));
             }
-//            if(hero.getLayoutX() == chest.getLayoutX()) {
-//                //open chest
-//                TranslateTransition translate_object1 = new TranslateTransition();
-//                translate_object1.setDuration(animation_time);
-//                translate_object1.setNode(chest);
-//                translate_object1.setByX(1000000000);
-//                translate_object1.setByY(0);
-//                translate_object1.play();
-//            }
         }
     }
 

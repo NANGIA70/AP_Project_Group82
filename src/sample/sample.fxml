@@ -61,7 +61,6 @@
             <Image url="@../assets/assets/Orc3.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="load" fitHeight="92.0" fitWidth="148.0" layoutX="1039.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true" />
       <Group fx:id="group_menu" layoutX="546.0" layoutY="-400.0">
          <children>
             <ImageView fx:id="Menu_background" fitHeight="372.0" fitWidth="261.0" layoutX="-66.0" pickOnBounds="true" preserveRatio="true">
@@ -91,7 +90,7 @@
             <Image url="@../assets/assets/Pause.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="955.0" layoutY="541.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="load" fitHeight="150.0" fitWidth="200.0" layoutX="955.0" layoutY="541.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/assets/Load.jpg" />
          </image>
