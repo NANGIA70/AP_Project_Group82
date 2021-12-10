@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -49,7 +50,24 @@ public class Controller implements Initializable {
     private Group gr2;
     @FXML
     private Group gr3;
+    @FXML
+    private ImageView orc;
+    @FXML
+    private ImageView Menu_background;
+    @FXML
+    private ImageView quit;
 
+    @FXML
+    private ImageView restart;
+
+    @FXML
+    private ImageView resume;
+    @FXML
+    private ImageView group_menu;
+    @FXML
+    private ImageView save;
+    @FXML
+    private ImageView load;
     public static TranslateTransition translate_an_object(Node obj, double x_cord, double y_cord, int duration_set) {
         Duration animation_time = Duration.millis(duration_set);
         TranslateTransition translate_object = new TranslateTransition();
@@ -72,9 +90,31 @@ public class Controller implements Initializable {
         translate_object.setCycleCount(Timeline.INDEFINITE);
         translate_object.play();
     }
-
-
-
+    public void move_down_menu(){
+        Duration animation_time = Duration.millis(1100);
+        TranslateTransition translate_object = new TranslateTransition();
+        translate_object.setDuration(animation_time);
+        translate_object.setNode(Menu_background);
+        translate_object.setByX(0);
+        translate_object.setByY(-1000);
+        translate_object.play();
+    }
+    public  void move_orc() {
+        final Timeline timeline = new Timeline();
+        Duration animation_time = Duration.millis(1000);
+        TranslateTransition translate_object = new TranslateTransition();
+        translate_object.setDuration(animation_time);
+        translate_object.setNode(orc);
+        translate_object.setByX(0);
+        translate_object.setByY(-120);
+        translate_object.setAutoReverse(true);
+        translate_object.setCycleCount(Timeline.INDEFINITE);
+        translate_object.play();
+    }
+    public  void exit_game()
+    {
+        javafx.application.Platform.exit();
+    }
     public void move_ClickHero() {
         if(flag) {
             Duration animation_time = Duration.millis(500);
@@ -129,6 +169,8 @@ public class Controller implements Initializable {
         translate_object3.setByY(1000000000);
         translate_object3.play();
         move_hero();
+        move_orc();
+        move_down_menu();
     }
 
     @Override
