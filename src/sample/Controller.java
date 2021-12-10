@@ -27,7 +27,7 @@ import javafx.animation.Timeline;
 public class Controller implements Initializable {
     private boolean flag = false;
     private boolean pause_flag = false;
-
+    private boolean chest_open = false;
     private int count = 0;
     private int coinCount = 0;
 
@@ -145,7 +145,8 @@ public class Controller implements Initializable {
         javafx.application.Platform.exit();
     }
 
-    public void move_ClickHero() {
+    public void move_ClickHero()
+    {
         if(flag && !pause_flag) {
             TranslateTransition translate_object = translate_an_object(hero, 100, 0, 500);
             translate_object.play();
@@ -154,11 +155,14 @@ public class Controller implements Initializable {
             distance.setText(String.valueOf(count));
 
 //            Open Chest
-            if(hero.getBoundsInParent().intersects(chest.getBoundsInParent())) {
-//                Update coinCount
+            if(hero.getBoundsInParent().intersects(chest.getBoundsInParent()) && !chest_open) {
+
+                chest_open = true;
+                //                Update coinCount
                 Random rand = new Random();
                 coinCount += (1 + rand.nextInt(6));
                 coin_count.setText(String.valueOf(coinCount));
+
 
 //                Change chest image
                 File file = new File("src/sample/ChestOpen.png");

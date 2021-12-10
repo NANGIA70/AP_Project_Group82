@@ -14,7 +14,7 @@
             <Image url="@../Images/Background.jpeg" />
          </image>
       </ImageView>
-      <Label fx:id="distance" layoutX="579.0" layoutY="7.0" prefHeight="97.0" prefWidth="29.0" text="0" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="distance" layoutX="579.0" layoutY="7.0" prefHeight="97.0" prefWidth="140.0" text="0" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Palatino Linotype" size="58.0" />
          </font>
