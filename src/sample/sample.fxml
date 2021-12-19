@@ -24,34 +24,9 @@
             <Image url="@../Images/Green-play-button-icon-on-transparent-background-PNG.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="island2" fitHeight="150.0" fitWidth="200.0" layoutX="500.0" layoutY="385.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
-         <image>
-            <Image url="@../assets/assets/Islands2.png" />
-         </image>
-      </ImageView>
       <ImageView fx:id="hero" fitHeight="48.0" fitWidth="55.0" layoutX="515.0" layoutY="307.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
          <image>
             <Image url="@../assets/assets/Helmet4.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="island3" fitHeight="150.0" fitWidth="200.0" layoutX="883.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
-         <image>
-            <Image url="@../assets/assets/Islands1.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="island1" fitHeight="150.0" fitWidth="200.0" layoutX="133.0" layoutY="396.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
-         <image>
-            <Image url="@../assets/assets/Islands3.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="chest" fitHeight="50.0" fitWidth="96.0" layoutX="915.0" layoutY="304.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
-         <image>
-            <Image url="@../assets/assets/ChestClosed.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="tree" fitHeight="150.0" fitWidth="200.0" layoutX="125.0" layoutY="178.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
-         <image>
-            <Image url="@../assets/assets/Tree1.png" />
          </image>
       </ImageView>
       <ImageView fx:id="exit" fitHeight="69.0" fitWidth="193.0" layoutX="9.0" layoutY="544.0" onMousePressed="#exit_game" pickOnBounds="true" preserveRatio="true">
@@ -112,5 +87,157 @@
             <Image url="@../Images/willHeroHeadingCrop.jpg" />
          </image>
       </ImageView>
+      <Group fx:id="group_game" layoutX="-4.0" layoutY="3.0" onMouseClicked="#move_ClickHero">
+         <children>
+            <ImageView fx:id="island2" fitHeight="150.0" fitWidth="200.0" layoutX="495.0" layoutY="385.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+               <image>
+                  <Image url="@../assets/assets/Islands2.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="island1" fitHeight="150.0" fitWidth="200.0" layoutX="133.0" layoutY="396.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
+               <image>
+                  <Image url="@../assets/assets/Islands3.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="tree" fitHeight="150.0" fitWidth="200.0" layoutX="125.0" layoutY="178.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
+               <image>
+                  <Image url="@../assets/assets/Tree1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="island3" fitHeight="150.0" fitWidth="200.0" layoutX="896.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
+               <image>
+                  <Image url="@../assets/assets/Islands1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="chest" fitHeight="50.0" fitWidth="96.0" layoutX="926.0" layoutY="304.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
+               <image>
+                  <Image url="@../assets/assets/ChestClosed.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="island4" fitHeight="150.0" fitWidth="200.0" layoutX="1296.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+               <image>
+                  <Image url="@../assets/assets/Islands1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="island5" fitHeight="150.0" fitWidth="200.0" layoutX="1796.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+               <image>
+                  <Image url="@../assets/assets/Islands1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="green_orc" fitHeight="50.0" fitWidth="96.0" layoutX="1826.0" layoutY="304.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
+               <image>
+                  <Image url="@../assets/assets/Orc3.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="island7" fitHeight="150.0" fitWidth="200.0" layoutX="2296.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+               <image>
+                  <Image url="@../assets/assets/Islands1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="island6" fitHeight="150.0" fitWidth="200.0" layoutX="2596.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+               <image>
+                  <Image url="@../assets/assets/Islands1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="island8" fitHeight="150.0" fitWidth="200.0" layoutX="2896.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+               <image>
+                  <Image url="@../assets/assets/Islands1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="island9" fitHeight="150.0" fitWidth="200.0" layoutX="3296.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+               <image>
+                  <Image url="@../assets/assets/Islands1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="island10" fitHeight="150.0" fitWidth="200.0" layoutX="3696.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+               <image>
+                  <Image url="@../assets/assets/Islands1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="island11" fitHeight="150.0" fitWidth="200.0" layoutX="4096.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+               <image>
+                  <Image url="@../assets/assets/Islands1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="island12" fitHeight="150.0" fitWidth="200.0" layoutX="4496.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+               <image>
+                  <Image url="@../assets/assets/Islands1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="island13" fitHeight="150.0" fitWidth="200.0" layoutX="4896.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+               <image>
+                  <Image url="@../assets/assets/Islands1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="island14" fitHeight="150.0" fitWidth="200.0" layoutX="5296.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+               <image>
+                  <Image url="@../assets/assets/Islands1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="island15" fitHeight="150.0" fitWidth="200.0" layoutX="5696.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+               <image>
+                  <Image url="@../assets/assets/Islands1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="island16" fitHeight="150.0" fitWidth="200.0" layoutX="6096.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+               <image>
+                  <Image url="@../assets/assets/Islands1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="island17" fitHeight="150.0" fitWidth="200.0" layoutX="6496.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+               <image>
+                  <Image url="@../assets/assets/Islands1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="island18" fitHeight="150.0" fitWidth="200.0" layoutX="6896.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+               <image>
+                  <Image url="@../assets/assets/Islands1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="island19" fitHeight="150.0" fitWidth="200.0" layoutX="7296.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+               <image>
+                  <Image url="@../assets/assets/Islands1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="island20" fitHeight="150.0" fitWidth="200.0" layoutX="7696.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+               <image>
+                  <Image url="@../assets/assets/Islands1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="island21" fitHeight="150.0" fitWidth="200.0" layoutX="8096.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+               <image>
+                  <Image url="@../assets/assets/Islands1.png" />
+               </image>
+            </ImageView> <ImageView fx:id="island22" fitHeight="150.0" fitWidth="200.0" layoutX="8496.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+            <image>
+               <Image url="@../assets/assets/Islands1.png" />
+            </image>
+         </ImageView> <ImageView fx:id="island23" fitHeight="150.0" fitWidth="200.0" layoutX="8896.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+            <image>
+               <Image url="@../assets/assets/Islands1.png" />
+            </image>
+         </ImageView>
+          <ImageView fx:id="island24" fitHeight="150.0" fitWidth="200.0" layoutX="9296.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+      <image>
+         <Image url="@../assets/assets/Islands1.png" />
+      </image>
+   </ImageView>
+            <ImageView fx:id="island25" fitHeight="150.0" fitWidth="200.0" layoutX="9696.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+               <image>
+                  <Image url="@../assets/assets/Islands1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="island26" fitHeight="150.0" fitWidth="200.0" layoutX="10096.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+               <image>
+                  <Image url="@../assets/assets/Islands1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="island27" fitHeight="150.0" fitWidth="200.0" layoutX="10496.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
+               <image>
+                  <Image url="@../assets/assets/Islands1.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
    </children>
 </AnchorPane>
