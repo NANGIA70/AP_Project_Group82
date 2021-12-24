@@ -97,6 +97,16 @@ public class GameController implements Initializable {
     @FXML
     private ImageView island27;
     @FXML
+    private ImageView island28;
+    @FXML
+    private ImageView island29;
+    @FXML
+    private ImageView island30;
+    @FXML
+    private ImageView island31;
+    @FXML
+    private ImageView island32;
+    @FXML
     private ImageView hero;
     @FXML
     private ImageView chest;
@@ -132,13 +142,49 @@ public class GameController implements Initializable {
     private ImageView FallingTile4;
     @FXML
     private ImageView FallingTile5;
-
+    @FXML
+    private ImageView FallingTile6;
+    @FXML
+    private ImageView FallingTile7;
+    @FXML
+    private ImageView FallingTile8;
+    @FXML
+    private ImageView FallingTile9;
+    @FXML
+    private ImageView FallingTile10;
     private TranslateTransition hero_up_down_translate_object;
+    @FXML
+    private ImageView red_orc1;
+    @FXML
+    private ImageView red_orc2;
+    @FXML
+    private ImageView red_orc3;
+    @FXML
+    private ImageView green_orc3;
+    @FXML
+    private ImageView green_orc2;
+    @FXML
+    private ImageView green_orc1;
+    @FXML
+    private ImageView chest6;
+    @FXML
+    private ImageView chest5;
+    @FXML
+    private ImageView chest4;
+    @FXML
+    private ImageView chest3;
+    @FXML
+    private ImageView chest2;
+
+
+
+
+
 
     private boolean move_click_hero_in_use = false;
 
-    FallingFloor ff;
-
+    FallingFloor ff1;
+    FallingFloor ff2;
     Helmet helmet;
 
     Coin coin;
@@ -168,10 +214,16 @@ public class GameController implements Initializable {
 
     public void move_hero_under_gravity() {
         TranslateTransition translate_object1 = translate_an_object(hero, 0,1 , 10);
-        if(check_island_collision() || check_falling_floor_collision()) {
-            if(!fall_floor && check_falling_floor_collision()) {
-                fall_floor = true;
-                fall_start();
+        if(check_island_collision() || check_falling_floor_collision(ff1) || check_falling_floor_collision(ff2))
+        {
+            if(!ff1.get_fall_floor_boolean() && check_falling_floor_collision(ff1))
+            {
+                ff1.fallStart(0);
+                ff1.set_fall_floor_boolean();
+            }
+            if(!ff2.get_fall_floor_boolean() && check_falling_floor_collision(ff2)) {
+                ff2.fallStart(0);
+                ff2.set_fall_floor_boolean();
             }
             translate_object1.setOnFinished(e -> move_hero());
         }
@@ -187,18 +239,6 @@ public class GameController implements Initializable {
         translate_object1.setOnFinished(e -> move_hero_under_gravity());
         translate_object1.play();
     }
-
-    private void fall_start() {
-        ff.fallStart(0);
-//        if(number > 4) {
-//            return;
-//        }
-//
-//        TranslateTransition translate_object1 = translate_an_object(falling_tiles.get(number).getGobj(), 0,500 , 2500);
-//        translate_object1.setOnFinished(e -> fall_start(number + 1));
-//        translate_object1.play();
-    }
-
 
 //    public void stop_hero() {
 //        hero_up_down_translate_object.stop();
@@ -226,15 +266,14 @@ public class GameController implements Initializable {
         return player.check_island_collision(islandsArrayList, group_game);
     }
 
-    public boolean check_falling_floor_collision() {
-        for(int i = 0; i < 5; i++) {
-            if(hero.getBoundsInParent().intersects(group_game.localToParent(falling_tiles.get(i).getGobj().getBoundsInParent()))) {
+    public boolean check_falling_floor_collision(FallingFloor ff1) {
+        for (ImageView fallTile : ff1.getFalling_tiles()) {
+            if(hero.getBoundsInParent().intersects(group_game.localToParent(fallTile.getBoundsInParent()))) {
                 return true;
             }
         }
         return false;
     }
-
     public void check_collision() {
         if(hero.getBoundsInParent().intersects(group_game.localToParent(chest.getBoundsInParent())) && !chest_open) {
 //           Update chest status
@@ -342,8 +381,8 @@ public class GameController implements Initializable {
 //            translate_an_object(gr1, 400, 200, 1500).play();
 //        }));
 //        timeline.play();
-        ff = new FallingFloor(FallingTile1);
-
+        ff1 = new FallingFloor(FallingTile1);
+        ff2 = new FallingFloor(FallingTile6);
         helmet = new Helmet();
 
         coin = new Coin(0, coinImage);
@@ -365,21 +404,25 @@ public class GameController implements Initializable {
         islandsArrayList.add(new Static_Island(island16));
         islandsArrayList.add(new Static_Island(island17));
         islandsArrayList.add(new Static_Island(island18));
-        islandsArrayList.add(new Static_Island(island19));
-        islandsArrayList.add(new Static_Island(island20));
-        islandsArrayList.add(new Static_Island(island21));
         islandsArrayList.add(new Static_Island(island22));
         islandsArrayList.add(new Static_Island(island23));
         islandsArrayList.add(new Static_Island(island24));
         islandsArrayList.add(new Static_Island(island25));
         islandsArrayList.add(new Static_Island(island26));
         islandsArrayList.add(new Static_Island(island27));
-
-        ff.addTiles(FallingTile2);
-        ff.addTiles(FallingTile3);
-        ff.addTiles(FallingTile4);
-        ff.addTiles(FallingTile5);
-
+        islandsArrayList.add(new Static_Island(island28));
+        islandsArrayList.add(new Static_Island(island29));
+        islandsArrayList.add(new Static_Island(island30));
+        islandsArrayList.add(new Static_Island(island31));
+        islandsArrayList.add(new Static_Island(island32));
+        ff1.addTiles(FallingTile2);
+        ff1.addTiles(FallingTile3);
+        ff1.addTiles(FallingTile4);
+        ff1.addTiles(FallingTile5);
+        ff2.addTiles(FallingTile7);
+        ff2.addTiles(FallingTile8);
+        ff2.addTiles(FallingTile9);
+        ff2.addTiles(FallingTile10);
         startPlay();
     }
 }

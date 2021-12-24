@@ -10,7 +10,7 @@ public class FallingFloor extends GameObject{
     private float rateOfFalling;
     private int numOfTiles = 5;
     private ArrayList<ImageView> falling_tiles = new ArrayList<ImageView>(numOfTiles);
-
+    boolean fall_floor_start = false;
     public FallingFloor(ImageView fallTile) {
         super(fallTile);
         falling_tiles.add(fallTile);
@@ -29,7 +29,10 @@ public class FallingFloor extends GameObject{
         translate_object1.setOnFinished(e -> fallStart(number + 1));
         translate_object1.play();
     }
-
+    public  ArrayList<ImageView> getFalling_tiles()
+    {
+        return falling_tiles;
+    }
     @Override
     public boolean collision(GameObject obj, Group group_game) {
         return false;
@@ -39,7 +42,14 @@ public class FallingFloor extends GameObject{
     public void move() {
 
     }
-
+    public void set_fall_floor_boolean()
+    {
+        fall_floor_start = true;
+    }
+    public boolean get_fall_floor_boolean()
+    {
+        return fall_floor_start;
+    }
     public float getRateOfFalling() {
         return rateOfFalling;
     }
