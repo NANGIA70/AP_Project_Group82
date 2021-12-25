@@ -33,10 +33,6 @@ public class FallingFloor extends GameObject{
     {
         return falling_tiles;
     }
-    @Override
-    public boolean collision(GameObject obj, Group group_game) {
-        return false;
-    }
 
     @Override
     public void move() {
@@ -56,5 +52,10 @@ public class FallingFloor extends GameObject{
 
     public void setRateOfFalling(float rateOfFalling) {
         this.rateOfFalling = rateOfFalling;
+    }
+
+    @Override
+    public boolean collision(GameObject obj, Group group_game, Group group_hero) {
+        return false;
     }
 }

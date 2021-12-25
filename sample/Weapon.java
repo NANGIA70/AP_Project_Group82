@@ -65,8 +65,7 @@ public abstract class Weapon extends GameObject{
         this.weaponNumber = weaponNumber;
     }
 
-    @Override
-    public boolean collision(GameObject obj, Group group_game) {
+    public boolean collision(GameObject obj, Group group_game,Group group_hero) {
 //        implement collision with orc
         return false;
     }

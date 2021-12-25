@@ -24,15 +24,15 @@ public class Player extends GameObject{
     }
 
     @Override
-    public boolean collision(GameObject obj, Group group_game) {
+    public boolean collision(GameObject obj, Group group_game,Group group_hero) {
 //        implement collision with everyone
         return false;
     }
 
 //    Collision Functions Start
-    public boolean check_island_collision(ArrayList<Island> islands, Group group_game) {
+    public boolean check_island_collision(ArrayList<Island> islands, Group group_game,Group group_hero) {
         for (Island island : islands) {
-            if (island.collision(this, group_game)) {
+            if (island.collision(this, group_game,group_hero)) {
                 return true;
             }
         }

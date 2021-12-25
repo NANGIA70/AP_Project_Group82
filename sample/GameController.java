@@ -128,7 +128,8 @@ public class GameController implements Initializable {
 
     @FXML
     private Group group_game;
-
+    @FXML
+    private Group group_hero;
     @FXML
     private Label distance;
     @FXML
@@ -179,8 +180,10 @@ public class GameController implements Initializable {
     private ImageView chest3;
     @FXML
     private ImageView chest2;
-
-
+    @FXML
+    private ImageView weapon;
+    @FXML
+    private ImageView exit;
     private boolean move_click_hero_in_use = false;
 
     FallingFloor ff1;
@@ -206,14 +209,18 @@ public class GameController implements Initializable {
     //    Function to start indefinite hero jumps
     public  void move_hero() {
         final Timeline timeline = new Timeline();
-        TranslateTransition translate_object = translate_an_object(hero, 0, -100, 1000);
+        TranslateTransition translate_object = translate_an_object(group_hero, 0, -100, 1000);
         hero_up_down_translate_object = translate_object;
         translate_object.setOnFinished(e -> hero_fall_down());
         translate_object.play();
     }
 
     public void move_hero_under_gravity() {
-        TranslateTransition translate_object1 = translate_an_object(hero, 0,1 , 10);
+        TranslateTransition translate_object1 = translate_an_object(group_hero, 0,1 , 10);
+        if(group_hero.localToParent(hero.getBoundsInParent()).intersects(group_game.localToParent(exit.getBoundsInParent())))
+        {
+            javafx.application.Platform.exit();
+        }
         if(check_island_collision() || check_falling_floor_collision(ff1) || check_falling_floor_collision(ff2))
         {
             if(!ff1.get_fall_floor_boolean() && check_falling_floor_collision(ff1))
@@ -235,7 +242,7 @@ public class GameController implements Initializable {
 
     private void hero_fall_down() {
         //TranslateTransition translate_object1 = translate_an_object(hero, 0,100 , 1000);
-        TranslateTransition translate_object1 = translate_an_object(hero, 0,1 , 10);
+        TranslateTransition translate_object1 = translate_an_object(group_hero, 0,1 , 10);
         translate_object1.setOnFinished(e -> move_hero_under_gravity());
         translate_object1.play();
     }
@@ -263,12 +270,12 @@ public class GameController implements Initializable {
     }
 
     public boolean check_island_collision() {
-        return player.check_island_collision(islandsArrayList, group_game);
+        return player.check_island_collision(islandsArrayList, group_game,group_hero);
     }
 
     public boolean check_falling_floor_collision(FallingFloor ff1) {
         for (ImageView fallTile : ff1.getFalling_tiles()) {
-            if(hero.getBoundsInParent().intersects(group_game.localToParent(fallTile.getBoundsInParent()))) {
+            if(group_hero.localToParent(hero.getBoundsInParent()).intersects(group_game.localToParent(fallTile.getBoundsInParent()))) {
                 return true;
             }
         }
@@ -277,7 +284,7 @@ public class GameController implements Initializable {
 
     public void check_collision() {
         for (TreasureChest tc : treasureChestArrayList) {
-            tc.collision(player, group_game);
+            tc.collision(player, group_game,group_hero);
 
 //            update coin count
             coin_count.setText(String.valueOf(player.getCoin().getCoinCount()));

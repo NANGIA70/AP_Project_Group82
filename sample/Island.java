@@ -10,7 +10,7 @@ public abstract class Island extends GameObject{
     }
 
     @Override
-    public boolean collision(GameObject obj, Group group_game) {
-        return obj.getGobj().getBoundsInParent().intersects(group_game.localToParent(this.getGobj().getBoundsInParent()));
+    public boolean collision(GameObject obj, Group group_game,Group group_hero) {
+        return group_hero.localToParent(obj.getGobj().getBoundsInParent()).intersects(group_game.localToParent(this.getGobj().getBoundsInParent()));
     }
 }

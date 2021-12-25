@@ -30,14 +30,14 @@ public class Coin extends GameObject{
     }
 
 //    Interface Methods
-    @Override
-    public boolean collision(GameObject obj, Group group_game) {
-//        Implement collision with player
-        return false;
-    }
 
     @Override
     public void move() {
 //        empty
+    }
+
+    @Override
+    public boolean collision(GameObject obj, Group group_game, Group group_hero) {
+        return false;
     }
 }

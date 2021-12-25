@@ -18,8 +18,8 @@ public class WeaponChest extends TreasureChest {
     }
 
     @Override
-    public boolean collision(GameObject obj, Group group_game) {
-        if(obj.getGobj().getBoundsInParent().intersects(group_game.localToParent(this.getGobj().getBoundsInParent())) && !chestOpen) {
+    public boolean collision(GameObject obj, Group group_game,Group group_hero) {
+        if(group_hero.localToParent(obj.getGobj().getBoundsInParent()).intersects(group_game.localToParent(this.getGobj().getBoundsInParent())) && !chestOpen) {
 //            Update chest status
             chestOpen = true;
 
