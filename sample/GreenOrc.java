@@ -13,9 +13,4 @@ public class GreenOrc extends Orc{
     public void move() {
 
     }
-
-    @Override
-    public boolean collision(GameObject obj, Group group_game, Group group_hero) {
-        return false;
-    }
 }

@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.animation.TranslateTransition;
+import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 
 public abstract class Orc extends GameObject{
@@ -9,6 +11,16 @@ public abstract class Orc extends GameObject{
 
     public Orc(ImageView orc) {
         super(orc);
+    }
+
+    @Override
+    public boolean collision(GameObject obj, Group group_game, Group group_hero) {
+        return false;
+    }
+
+    public void move_orc_down() {
+        TranslateTransition translate_object = translate_an_object(this.getGobj(), 0, 400, 2000);
+        translate_object.play();
     }
 
     public void Die() {

@@ -188,7 +188,6 @@ public class GameController implements Initializable {
     private ImageView weapon;
     @FXML
     private ImageView exit;
-    private boolean move_click_hero_in_use = false;
 
     FallingFloor ff1;
     FallingFloor ff2;
@@ -197,7 +196,6 @@ public class GameController implements Initializable {
     Coin coin;
 
     Player player;
-
 
     //    Function to create required translate transition object
     public static TranslateTransition translate_an_object(Node obj, double x_cord, double y_cord, int duration_set) {
@@ -210,69 +208,6 @@ public class GameController implements Initializable {
         return translate_object;
     }
 
-    //    Function to start indefinite hero jumps
-    public  void move_hero() {
-        final Timeline timeline = new Timeline();
-        TranslateTransition translate_object = translate_an_object(group_hero, 0, -100, 1000);
-        translate_object.setOnFinished(e -> hero_fall_down());
-        translate_object.play();
-    }
-
-    public void move_hero_under_gravity() throws IOException {
-        TranslateTransition translate_object1 = translate_an_object(group_hero, 0,1 , 10);
-
-        if(group_hero.localToParent(hero.getBoundsInParent()).intersects(group_game.localToParent(exit.getBoundsInParent()))) {
-            player.Revive(content);
-//            if (player.getCoin().getCoinCount() < 5) {
-//                Parent root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
-//                content.getChildren().setAll(root);
-//            }
-//            else {
-//                Parent root = FXMLLoader.load(getClass().getResource("RevivePage.fxml"));
-//                content.getChildren().setAll(root);
-//            }
-        }
-
-        if(check_island_collision() || check_falling_floor_collision(ff1) || check_falling_floor_collision(ff2)) {
-            if(!ff1.get_fall_floor_boolean() && check_falling_floor_collision(ff1))
-            {
-                ff1.fallStart(0);
-                ff1.set_fall_floor_boolean();
-            }
-            if(!ff2.get_fall_floor_boolean() && check_falling_floor_collision(ff2)) {
-                ff2.fallStart(0);
-                ff2.set_fall_floor_boolean();
-            }
-            translate_object1.setOnFinished(e -> move_hero());
-        }
-        else {
-            translate_object1.setOnFinished(e -> {
-                try {
-                    move_hero_under_gravity();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-            });
-        }
-        translate_object1.play();
-    }
-
-    private void hero_fall_down() {
-        //TranslateTransition translate_object1 = translate_an_object(hero, 0,100 , 1000);
-        TranslateTransition translate_object1 = translate_an_object(group_hero, 0,1 , 10);
-        translate_object1.setOnFinished(e -> {
-            try {
-                move_hero_under_gravity();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        });
-        translate_object1.play();
-    }
-
-//    public void stop_hero() {
-//        hero_up_down_translate_object.stop();
-//    }
 
     //    Function to start indefinite orc jumps
     public  void move_orc() {
@@ -292,65 +227,65 @@ public class GameController implements Initializable {
         translate_object.play();
     }
 
-//    collision of islands and player
-    public boolean check_island_collision() {
-        return player.check_island_collision(islandsArrayList, group_game, group_hero);
-    }
+////    collision of islands and player
+//    public boolean check_island_collision() {
+//        return player.check_island_collision(islandsArrayList, group_game, group_hero);
+//    }
+//
+////     Collision between falling floor and player
+//    public boolean check_falling_floor_collision(FallingFloor ff1) {
+//        return player.check_falling_floor_collision(ff1, group_game, group_hero);
+//    }
 
-//     Collision between falling floor and player
-    public boolean check_falling_floor_collision(FallingFloor ff1) {
-        return player.check_falling_floor_collision(ff1, group_game, group_hero);
-    }
-
-    public void check_collision() {
-//        Chests
-        for (TreasureChest tc : treasureChestArrayList) {
-            tc.collision(player, group_game,group_hero);
-
-//            update coin count
-            coin_count.setText(String.valueOf(player.getCoin().getCoinCount()));
-        }
-
-        if(hero.getBoundsInParent().intersects(group_game.localToParent(green_orc.getBoundsInParent()))) {
-            TranslateTransition translate_object = translate_an_object(green_orc, 250, 0, 500);
-            translate_object.play();
-            translate_object.setOnFinished(e -> move_orc_down());
-        }
-    }
+//    public void check_collision() {
+////        Chests
+//        for (TreasureChest tc : treasureChestArrayList) {
+//            tc.collision(player, group_game,group_hero);
+//
+////            update coin count
+//            coin_count.setText(String.valueOf(player.getCoin().getCoinCount()));
+//        }
+//
+//        if(hero.getBoundsInParent().intersects(group_game.localToParent(green_orc.getBoundsInParent()))) {
+//            TranslateTransition translate_object = translate_an_object(green_orc, 250, 0, 500);
+//            translate_object.play();
+//            translate_object.setOnFinished(e -> move_orc_down());
+//        }
+//    }
 
     public void move_orc_down() {
         TranslateTransition translate_object = translate_an_object(green_orc, 0, 400, 2000);
         translate_object.play();
     }
 
-    //    Function to move hero on mouse click
-    public void move_hero_small(int number) {
-        if(number < 1) {
-            move_click_hero_in_use = false;
-            return;
-        }
-        else {
-            check_collision();
-            TranslateTransition translate_object1 = translate_an_object(group_game, -1,0 , 5);
-            translate_object1.setOnFinished(e -> move_hero_small(number -1));
-            translate_object1.play();
-        }
-
-    }
+//    //    Function to move hero on mouse click
+//    public void move_hero_small(int number) {
+//        if(number < 1) {
+//            move_click_hero_in_use = false;
+//            return;
+//        }
+//        else {
+//            check_collision();
+//            TranslateTransition translate_object1 = translate_an_object(group_game, -1,0 , 5);
+//            translate_object1.setOnFinished(e -> move_hero_small(number -1));
+//            translate_object1.play();
+//        }
+//    }
 
     public void move_ClickHero() {
-        if(!move_click_hero_in_use) {
-//            Update distance
-            player.increaseScore();
-            distance.setText(String.valueOf(player.getScore()));
-
-//            Move hero forward
-            move_click_hero_in_use = true;
-            TranslateTransition translate_object1 = translate_an_object(group_game, -1,0 , 5);
-            translate_object1.setOnFinished(e -> move_hero_small(100));
-            translate_object1.play();
-            check_collision();
-        }
+        player.move_ClickHero(distance, coin_count, orcArrayList, treasureChestArrayList, group_game, group_hero);
+//        if(!move_click_hero_in_use) {
+////            Update distance
+//            player.increaseScore();
+//            distance.setText(String.valueOf(player.getScore()));
+//
+////            Move hero forward
+//            move_click_hero_in_use = true;
+//            TranslateTransition translate_object1 = translate_an_object(group_game, -1,0 , 5);
+//            translate_object1.setOnFinished(e -> move_hero_small(100));
+//            translate_object1.play();
+//            check_collision();
+//        }
     }
 
     //    Function to start the game

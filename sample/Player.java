@@ -134,7 +134,7 @@ public class Player extends GameObject{
     }
 //
     //    Function to move hero on mouse click
-    public void move_hero_small(int number, Label coin_count, ArrayList<Orc> orcArrayList, ArrayList<TreasureChest> treasureChestArrayList, Group group_hero, Group group_game) {
+    public void move_hero_small(int number, Label coin_count, ArrayList<Orc> orcArrayList, ArrayList<TreasureChest> treasureChestArrayList, Group group_game, Group group_hero) {
         if(number < 1) {
             move_click_hero_in_use = false;
             return;
@@ -146,8 +146,8 @@ public class Player extends GameObject{
             translate_object1.play();
         }
     }
-//
-    public void move_ClickHero(Label distance, Label coin_count, ArrayList<Orc> orcArrayList, ArrayList<TreasureChest> treasureChestArrayList, Group group_hero, Group group_game) {
+
+    public void move_ClickHero(Label distance, Label coin_count, ArrayList<Orc> orcArrayList, ArrayList<TreasureChest> treasureChestArrayList, Group group_game, Group group_hero) {
         if(!move_click_hero_in_use) {
 //            Update distance
             this.increaseScore();
