@@ -15,6 +15,15 @@ public abstract class Orc extends GameObject{
         super(orc);
     }
     @Override
+    public void move() {
+        final Timeline timeline = new Timeline();
+        TranslateTransition translate_object = translate_an_object(this.getGobj(), 0, -120, 1000);
+        translate_object.setAutoReverse(true);
+        translate_object.setCycleCount(Timeline.INDEFINITE);
+        translate_object.play();
+    }
+
+    @Override
     public boolean collision(GameObject obj, Group group_game, Group group_hero) {
         if(obj.getGobj().getBoundsInParent().intersects(group_game.localToParent(this.getGobj().getBoundsInParent()))) {
             TranslateTransition translate_object = translate_an_object(this.getGobj(), 250, 0, 500);

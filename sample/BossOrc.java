@@ -8,8 +8,4 @@ public class BossOrc extends Orc{
     public BossOrc(ImageView orc) {
         super(orc);
     }
-    @Override
-    public void move() {
-
-    }
 }

@@ -8,6 +8,7 @@ public class GreenOrc extends Orc{
         super(orc);
     }
 
+
     @Override
     public void move() {
 
