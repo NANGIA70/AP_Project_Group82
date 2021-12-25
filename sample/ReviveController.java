@@ -25,7 +25,7 @@ public class ReviveController {
     @FXML
     private ImageView reviveBackground;
     @FXML
-    private ImageView coin;
+    private ImageView coinImage;
     @FXML
     private ImageView reviveButton1;
     @FXML
@@ -37,6 +37,7 @@ public class ReviveController {
     private javafx.scene.control.Label noThanks;
 
     public void reviveAction(javafx.scene.input.MouseEvent event) throws IOException {
+//        if ()
         Parent root = FXMLLoader.load(getClass().getResource("GamePage.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root, 1200, 645);
