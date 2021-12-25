@@ -154,7 +154,7 @@ public class Player extends GameObject{
         }
     }
 
-    public void move_ClickHero(Label distance, Label coin_count, ArrayList<Orc> orcArrayList, ArrayList<TreasureChest> treasureChestArrayList, Group group_game, Group group_hero) {
+    public void move_ClickHero(Label distance, Label coin_count, ArrayList<Orc> orcArrayList, ArrayList<TreasureChest> treasureChestArrayList, Group group_game, Group group_hero, ImageView weapon) {
         if(!move_click_hero_in_use) {
 //            Update distance
             this.increaseScore();
@@ -162,9 +162,16 @@ public class Player extends GameObject{
 
 //            Move hero forward
             move_click_hero_in_use = true;
+
+//            Weapon
+            TranslateTransition translate_object = translate_an_object(weapon, 1, 0, 1);
+            translate_object.setOnFinished(e -> move_weapon_forward(100, group_hero, weapon));
+            translate_object.play();
+
             TranslateTransition translate_object1 = translate_an_object(group_game, -1,0 , 5);
             translate_object1.setOnFinished(e -> move_hero_small(100, coin_count, orcArrayList, treasureChestArrayList, group_game, group_hero));
             translate_object1.play();
+
             check_collision(coin_count, orcArrayList, treasureChestArrayList, group_game, group_hero);
         }
     }
@@ -247,5 +254,33 @@ public class Player extends GameObject{
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+//    Weapon functions
+    public void move_weapon_forward(int number, Group group_hero, ImageView weapon) {
+        if(number < 1) {
+            return;
+        }
+        else {
+            TranslateTransition translate_object1 = translate_an_object(weapon, 1,0 , 1);
+            if(number == 2) {
+                System.out.println("hello");
+                translate_object1.setOnFinished(e -> move_weapon_backward(group_hero, weapon));
+            }
+            else {
+                translate_object1.setOnFinished(e -> move_weapon_forward(number -1, group_hero, weapon));
+            }
+            translate_object1.play();
+        }
+    }
+    public void move_weapon_backward(Group group_hero, ImageView weapon) {
+        if(group_hero.localToParent(this.getGobj().getBoundsInParent()).intersects(group_hero.localToParent(weapon.getBoundsInParent()))) {
+            return;
+        }
+        else {
+            TranslateTransition translate_object1 = translate_an_object(weapon, -1,0 , 1);
+            translate_object1.setOnFinished(e -> move_weapon_backward(group_hero, weapon));
+            translate_object1.play();
+        }
     }
 }

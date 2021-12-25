@@ -15,6 +15,11 @@ public abstract class Orc extends GameObject{
 
     @Override
     public boolean collision(GameObject obj, Group group_game, Group group_hero) {
+        if(obj.getGobj().getBoundsInParent().intersects(group_game.localToParent(this.getGobj().getBoundsInParent()))) {
+            TranslateTransition translate_object = translate_an_object(this.getGobj(), 250, 0, 500);
+            translate_object.play();
+            translate_object.setOnFinished(e -> move_orc_down());
+        }
         return false;
     }
 
