@@ -10,12 +10,10 @@ public abstract class Weapon extends GameObject{
     private int level;
     private int weaponNumber;
 
-    public Weapon(/*float x_Coordinate, float y_Coordinate, float x_Speed, float y_Speed,*/ int damage, int range, int damageRadius, int level, int weaponNumber, ImageView weapon) {
+    public Weapon(/*float x_Coordinate, float y_Coordinate, float x_Speed, float y_Speed,*/ int damage, int level, int weaponNumber, ImageView weapon) {
 //        super(x_Coordinate, y_Coordinate, x_Speed, y_Speed);
         super(weapon);
         this.damage = damage;
-        this.range = range;
-        this.damageRadius = damageRadius;
         this.weaponNumber = weaponNumber;
         this.level = level;
     }
@@ -33,21 +31,6 @@ public abstract class Weapon extends GameObject{
         this.damage = damage;
     }
 
-    public int getRange() {
-        return range;
-    }
-
-    public void setRange(int range) {
-        this.range = range;
-    }
-
-    public int getDamageRadius() {
-        return damageRadius;
-    }
-
-    public void setDamageRadius(int damageRadius) {
-        this.damageRadius = damageRadius;
-    }
 
     public int getLevel() {
         return level;

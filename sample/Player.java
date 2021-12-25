@@ -18,6 +18,7 @@ public class Player extends GameObject{
     private Helmet helmet;
     private Coin coin;
     private int score = 0;
+    private int current_weapon_number;
     private boolean move_click_hero_in_use = false;
 
 
@@ -64,6 +65,12 @@ public class Player extends GameObject{
         }
         return false;
     }
+
+    public void setWeaponsList(ArrayList<Weapon> weaponsList)
+    {
+        helmet.setWeaponsList(weaponsList);
+    }
+
 
     public boolean check_falling_floor_collision(FallingFloor ff1, Group group_game, Group group_hero) {
         for (ImageView fallTile : ff1.getFalling_tiles()) {
@@ -195,6 +202,13 @@ public class Player extends GameObject{
     }
 
     //    Getters and Setters
+    public void set_weapon_number(int weapon_number)
+    {
+        this.current_weapon_number = weapon_number;
+    }
+    public int get_current_weapon_number(){
+        return current_weapon_number;
+    }
     public int getJumpHeight() {
         return jumpHeight;
     }
