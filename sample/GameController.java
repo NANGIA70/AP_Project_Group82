@@ -210,8 +210,6 @@ public class GameController implements Initializable {
         translate_object.setByY(y_cord);
         return translate_object;
     }
-
-
        // Function to start indefinite orc jumps
     public  void move_orc() {
         final Timeline timeline = new Timeline();
@@ -220,7 +218,6 @@ public class GameController implements Initializable {
         translate_object.setCycleCount(Timeline.INDEFINITE);
         translate_object.play();
     }
-
     //    Function to start indefinite island movement
     public  void move_island(ImageView island) {
         final Timeline timeline = new Timeline();
@@ -229,105 +226,9 @@ public class GameController implements Initializable {
         translate_object.setCycleCount(Timeline.INDEFINITE);
         translate_object.play();
     }
-
-////    collision of islands and player
-//    public boolean check_island_collision() {
-//        return player.check_island_collision(islandsArrayList, group_game, group_hero);
-//    }
-//
-////     Collision between falling floor and player
-//    public boolean check_falling_floor_collision(FallingFloor ff1) {
-//        return player.check_falling_floor_collision(ff1, group_game, group_hero);
-//    }
-
-//    public void check_collision() {
-////        Chests
-//        for (TreasureChest tc : treasureChestArrayList) {
-//            tc.collision(player, group_game,group_hero);
-//
-////            update coin count
-//            coin_count.setText(String.valueOf(player.getCoin().getCoinCount()));
-//        }
-//
-//        if(hero.getBoundsInParent().intersects(group_game.localToParent(green_orc.getBoundsInParent()))) {
-//            TranslateTransition translate_object = translate_an_object(green_orc, 250, 0, 500);
-//            translate_object.play();
-//            translate_object.setOnFinished(e -> move_orc_down());
-//        }
-//    }
-
-    public void move_orc_down() {
-        TranslateTransition translate_object = translate_an_object(green_orc, 0, 400, 2000);
-        translate_object.play();
-    }
-
-
-//    //    Function to move hero on mouse click
-//    public void move_hero_small(int number) {
-//        if(number < 1) {
-//            move_click_hero_in_use = false;
-//            return;
-//        }
-//        else {
-//            check_collision();
-//            TranslateTransition translate_object1 = translate_an_object(group_game, -1,0 , 5);
-//            translate_object1.setOnFinished(e -> move_hero_small(number -1));
-//            translate_object1.play();
-//        }
-//    }
-
     public void move_ClickHero() {
         player.move_ClickHero(distance, coin_count, orcArrayList, treasureChestArrayList, group_game, group_hero, weapon);
-
     }
-//    public void move_weapon_foward(int number) {
-//        if(number < 1) {
-//            return;
-//        }
-//        else {
-//            TranslateTransition translate_object1 = translate_an_object(weapon, 1,0 , 1);
-//            if(number == 2) {
-//                System.out.println("hello");
-//                translate_object1.setOnFinished(e -> move_weapon_backward());
-//            }
-//            else {
-//                translate_object1.setOnFinished(e -> move_weapon_foward(number -1));
-//            }
-//            translate_object1.play();
-//        }
-//    }
-//    public void move_weapon_backward()
-//    {
-//        if(group_hero.localToParent(hero.getBoundsInParent()).intersects(group_hero.localToParent(weapon.getBoundsInParent()))) {
-//            return;
-//        }
-//        else {
-//            TranslateTransition translate_object1 = translate_an_object(weapon, -1,0 , 1);
-//            translate_object1.setOnFinished(e -> move_weapon_backward());
-//            translate_object1.play();
-//        }
-//    }
-
-//    public void move_ClickHero() {
-//        if(!move_click_hero_in_use) {
-////            Update distance
-//            player.increaseScore();
-//            distance.setText(String.valueOf(player.getScore()));
-//
-////            Move hero forward
-//            move_click_hero_in_use = true;
-//
-//            TranslateTransition translate_object = translate_an_object(weapon, 1, 0, 1);
-//            translate_object.setOnFinished(e -> move_weapon_foward(100));
-//            translate_object.play();
-//            TranslateTransition translate_object1 = translate_an_object(group_game, -1,0 , 5);
-//            translate_object1.setOnFinished(e -> move_hero_small(100));
-//            translate_object1.play();
-//            check_collision();
-//        }
-//    }
-
-    //    Function to start the game
     public void startPlay() {
 //        Remove heading
         TranslateTransition translate_object = translate_an_object(heading, 0, -1000000000, 10);
@@ -420,8 +321,8 @@ public class GameController implements Initializable {
 
 //        Green Orcs
         orcArrayList.add(new GreenOrc(green_orc));
-        orcArrayList.add(new GreenOrc(green_orc));
-        orcArrayList.add(new GreenOrc(green_orc));
+        orcArrayList.add(new GreenOrc(green_orc3));
+        orcArrayList.add(new GreenOrc(green_orc2));
 
         weapon1 = new Weapon1(200,0,1, weapon);
         weapon2 = new Weapon2(200,0,2, weapon);
@@ -441,7 +342,7 @@ public class GameController implements Initializable {
         fade_obj.setDuration(Duration.millis(1));
         fade_obj.setToValue(0);
         fade_obj.setNode(weapon);
-//        fade_obj.play();
+        fade_obj.play();
         startPlay();
     }
 

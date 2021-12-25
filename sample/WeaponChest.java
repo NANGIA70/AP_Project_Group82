@@ -40,6 +40,7 @@ public class WeaponChest extends TreasureChest {
                 fade_obj.setNode( player.getHelmet().getWeaponsList().get(0).getGobj());
                 fade_obj.play();
                 player.set_weapon_number(1);
+                player.sethasweapon();
             }
             for(int i =0;i<player.getHelmet().getWeaponsList().size();i++)
             {

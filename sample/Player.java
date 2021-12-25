@@ -20,6 +20,7 @@ public class Player extends GameObject{
     private int score = 0;
     private int current_weapon_number;
     private boolean move_click_hero_in_use = false;
+    private boolean hasweapon = false;
 
 
     public Player(/*float x_Coordinate, float y_Coordinate, float x_Speed, float y_Speed,*/ int jumpHeight, int jumpDistance, Helmet helmet, Coin coin ,ImageView hero) {
@@ -48,6 +49,7 @@ public class Player extends GameObject{
 
         for (Orc orc : orcArrayList) {
             orc.collision(this, group_game,group_hero);
+
         }
 //        if(this.getGobj().getBoundsInParent().intersects(group_game.localToParent(green_orc.getBoundsInParent()))) {
 //            TranslateTransition translate_object = translate_an_object(green_orc, 250, 0, 500);
@@ -165,7 +167,7 @@ public class Player extends GameObject{
 
 //            Weapon
             TranslateTransition translate_object = translate_an_object(weapon, 1, 0, 1);
-            translate_object.setOnFinished(e -> move_weapon_forward(100, group_hero, weapon));
+            translate_object.setOnFinished(e -> move_weapon_forward(100, group_hero, weapon,orcArrayList,group_game,coin_count));
             translate_object.play();
 
             TranslateTransition translate_object1 = translate_an_object(group_game, -1,0 , 5);
@@ -257,18 +259,26 @@ public class Player extends GameObject{
     }
 
 //    Weapon functions
-    public void move_weapon_forward(int number, Group group_hero, ImageView weapon) {
+    public void move_weapon_forward(int number, Group group_hero, ImageView weapon, ArrayList<Orc> orcArrayList,Group group_game,Label coin_count) {
+        for (Orc orc : orcArrayList)
+        {
+            if(orc.collision_weapon(helmet.getWeaponsList().get(current_weapon_number), group_game,group_hero) && hasweapon)
+            {
+                orc.die(this);
+                coin_count.setText(String.valueOf(this.getCoin().getCoinCount()));
+                return;
+            }
+        }
         if(number < 1) {
             return;
         }
         else {
             TranslateTransition translate_object1 = translate_an_object(weapon, 1,0 , 1);
             if(number == 2) {
-                System.out.println("hello");
                 translate_object1.setOnFinished(e -> move_weapon_backward(group_hero, weapon));
             }
             else {
-                translate_object1.setOnFinished(e -> move_weapon_forward(number -1, group_hero, weapon));
+                translate_object1.setOnFinished(e -> move_weapon_forward(number -1, group_hero, weapon, orcArrayList,group_game,coin_count));
             }
             translate_object1.play();
         }
@@ -282,5 +292,13 @@ public class Player extends GameObject{
             translate_object1.setOnFinished(e -> move_weapon_backward(group_hero, weapon));
             translate_object1.play();
         }
+    }
+    public boolean gethasweapon()
+    {
+        return hasweapon;
+    }
+    public void sethasweapon()
+    {
+        this.hasweapon = true;
     }
 }
