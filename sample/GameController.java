@@ -27,21 +27,14 @@ import javafx.animation.Timeline;
 
 public class GameController implements Initializable {
 
-    private boolean chest_open = false;
-
     private ArrayList<Island> islandsArrayList = new ArrayList<Island>();
 
     private ArrayList<Orc> orcArrayList = new ArrayList<Orc>();
 
     private ArrayList<TreasureChest> treasureChestArrayList = new ArrayList<TreasureChest>();
     private ArrayList<Weapon> weaponsList = new ArrayList<Weapon>();
-
-    private boolean fall_floor = false;
     @FXML
     private AnchorPane content;
-
-    private Stage stage;
-    private Scene scene;
 
     @FXML
     private ImageView heading;
@@ -210,22 +203,8 @@ public class GameController implements Initializable {
         translate_object.setByY(y_cord);
         return translate_object;
     }
-       // Function to start indefinite orc jumps
-    public  void move_orc() {
-        final Timeline timeline = new Timeline();
-        TranslateTransition translate_object = translate_an_object(orc, 0, -120, 1000);
-        translate_object.setAutoReverse(true);
-        translate_object.setCycleCount(Timeline.INDEFINITE);
-        translate_object.play();
-    }
     //    Function to start indefinite island movement
-    public  void move_island(ImageView island) {
-        final Timeline timeline = new Timeline();
-        TranslateTransition translate_object = translate_an_object(island, 0, 10, 1000);
-        translate_object.setAutoReverse(true);
-        translate_object.setCycleCount(Timeline.INDEFINITE);
-        translate_object.play();
-    }
+
     public void move_ClickHero() {
         player.move_ClickHero(distance, coin_count, orcArrayList, treasureChestArrayList, group_game, group_hero, weapon);
     }
@@ -242,15 +221,15 @@ public class GameController implements Initializable {
         player.moveHero(content, islandsArrayList, ff1, ff2, group_game, group_hero, exit);
 
 //        Start orc jumps
-        move_orc();
+        for (Orc orc : orcArrayList) {
+            orc.move();
+        }
 
 //        Start moving island3 and chest
         for (Island island : islandsArrayList) {
             island.move();
         }
-
-        move_island(chest);
-        // add_to_group();
+        treasureChestArrayList.get(0).move();
     }
 
     public void pause_menu(javafx.scene.input.MouseEvent event) throws IOException {
@@ -263,10 +242,6 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-//            translate_an_object(gr1, 400, 200, 1500).play();
-//        }));
-//        timeline.play();
         ff1 = new FallingFloor(FallingTile1);
         ff2 = new FallingFloor(FallingTile6);
         helmet = new Helmet();
@@ -329,6 +304,7 @@ public class GameController implements Initializable {
         weaponsList.add(weapon1);
         weaponsList.add(weapon2);
         player.setWeaponsList(weaponsList);
+
 //        Chests
         treasureChestArrayList.add(new CoinChest(chest));
         treasureChestArrayList.add(new WeaponChest(chest2,weapon1));
@@ -342,7 +318,7 @@ public class GameController implements Initializable {
         fade_obj.setDuration(Duration.millis(1));
         fade_obj.setToValue(0);
         fade_obj.setNode(weapon);
-        fade_obj.play();
+//        fade_obj.play();
         startPlay();
     }
 

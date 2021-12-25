@@ -7,9 +7,4 @@ public class GreenOrc extends Orc{
     public GreenOrc(ImageView orc) {
         super(orc);
     }
-
-    @Override
-    public void move() {
-
-    }
 }

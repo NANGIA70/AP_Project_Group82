@@ -21,10 +21,10 @@ public class Player extends GameObject{
     private int current_weapon_number;
     private boolean move_click_hero_in_use = false;
     private boolean hasweapon = false;
+    private boolean revive = false;
 
 
-    public Player(/*float x_Coordinate, float y_Coordinate, float x_Speed, float y_Speed,*/ int jumpHeight, int jumpDistance, Helmet helmet, Coin coin ,ImageView hero) {
-//        super(x_Coordinate, y_Coordinate, x_Speed, y_Speed);
+    public Player(int jumpHeight, int jumpDistance, Helmet helmet, Coin coin ,ImageView hero) {
         super(hero);
         this.jumpHeight = jumpHeight;
         this.jumpDistance = jumpDistance;
@@ -49,13 +49,8 @@ public class Player extends GameObject{
 
         for (Orc orc : orcArrayList) {
             orc.collision(this, group_game,group_hero);
-
+            coin_count.setText(String.valueOf(this.getCoin().getCoinCount()));
         }
-//        if(this.getGobj().getBoundsInParent().intersects(group_game.localToParent(green_orc.getBoundsInParent()))) {
-//            TranslateTransition translate_object = translate_an_object(green_orc, 250, 0, 500);
-//            translate_object.play();
-//            translate_object.setOnFinished(e -> move_orc_down());
-//        }
     }
 
 //    Collision Functions Start
@@ -196,14 +191,15 @@ public class Player extends GameObject{
     }
 
     public void Revive(AnchorPane content) throws IOException {
-        if (this.getCoin().getCoinCount() < 5) {
-            Parent root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
-            content.getChildren().setAll(root);
+        Parent root;
+        if (this.getCoin().getCoinCount() < 5 || revive) {
+            root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
         }
         else {
-            Parent root = FXMLLoader.load(getClass().getResource("RevivePage.fxml"));
-            content.getChildren().setAll(root);
+            revive = true;
+            root = FXMLLoader.load(getClass().getResource("RevivePage.fxml"));
         }
+        content.getChildren().setAll(root);
     }
 
     public void Kill() {
@@ -293,8 +289,7 @@ public class Player extends GameObject{
             translate_object1.play();
         }
     }
-    public boolean gethasweapon()
-    {
+    public boolean gethasweapon() {
         return hasweapon;
     }
     public void sethasweapon()

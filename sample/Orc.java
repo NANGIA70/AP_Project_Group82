@@ -14,6 +14,7 @@ public abstract class Orc extends GameObject{
     public Orc(ImageView orc) {
         super(orc);
     }
+
     @Override
     public boolean collision(GameObject obj, Group group_game, Group group_hero) {
         if(obj.getGobj().getBoundsInParent().intersects(group_game.localToParent(this.getGobj().getBoundsInParent()))) {
@@ -23,22 +24,22 @@ public abstract class Orc extends GameObject{
         }
         return false;
     }
+
     public boolean collision_weapon(GameObject obj, Group group_game, Group group_hero) {
-        if(obj.getGobj().getBoundsInParent().intersects(group_game.localToParent(this.getGobj().getBoundsInParent()))) {
-            return true;
-        }
-        return false;
+        return obj.getGobj().getBoundsInParent().intersects(group_game.localToParent(this.getGobj().getBoundsInParent()));
     }
+
     public void move_orc_down() {
         TranslateTransition translate_object = translate_an_object(this.getGobj(), 0, 500, 2000);
         translate_object.play();
     }
-    public void die(GameObject obj)
-    {
+
+    public void die(GameObject obj) {
         Player player = (Player) obj;
         player.addCoins(2);
         move_orc_down();
     }
+
    @Override
     public void move() {
         final Timeline timeline = new Timeline();
