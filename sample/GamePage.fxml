@@ -28,16 +28,11 @@
                 </ImageView>
                 <ImageView fx:id="weapon" fitHeight="40.0" fitWidth="40.0" layoutX="585.0" layoutY="307.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
                     <image>
-                        <Image url="@../Images/Background.jpeg" />
+                        <Image url="@../assets/assets/WeaponAxe.png" />
                     </image>
                 </ImageView>
             </children>
         </Group>
-        <ImageView fx:id="orc" fitHeight="75.0" fitWidth="82.0" layoutX="272.0" layoutY="292.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@../assets/assets/Orc3.png" />
-            </image>
-        </ImageView>
         <ImageView fx:id="pause" fitHeight="98.0" fitWidth="56.0" layoutX="1113.0" layoutY="18.0" onMousePressed="#pause_menu" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../assets/assets/Pause.png" />

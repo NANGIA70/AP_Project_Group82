@@ -13,6 +13,7 @@ public class Player extends GameObject{
     private Helmet helmet;
     private Coin coin;
     private int score = 0;
+    private int current_weapon_number;
 
     public Player(/*float x_Coordinate, float y_Coordinate, float x_Speed, float y_Speed,*/ int jumpHeight, int jumpDistance, Helmet helmet, Coin coin ,ImageView hero) {
 //        super(x_Coordinate, y_Coordinate, x_Speed, y_Speed);
@@ -38,7 +39,10 @@ public class Player extends GameObject{
         }
         return false;
     }
-
+    public void setWeaponsList(ArrayList<Weapon> weaponsList)
+    {
+        helmet.setWeaponsList(weaponsList);
+    }
 //    Collision Functions End
 
 //    Movement Functions Start
@@ -129,6 +133,13 @@ public class Player extends GameObject{
     }
 
     //    Getters and Setters
+    public void set_weapon_number(int weapon_number)
+    {
+        this.current_weapon_number = weapon_number;
+    }
+    public int get_current_weapon_number(){
+        return current_weapon_number;
+    }
     public int getJumpHeight() {
         return jumpHeight;
     }

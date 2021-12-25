@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +34,7 @@ public class GameController implements Initializable {
     private ArrayList<Orc> orcArrayList = new ArrayList<Orc>();
 
     private ArrayList<TreasureChest> treasureChestArrayList = new ArrayList<TreasureChest>();
+    private ArrayList<Weapon> weaponsList = new ArrayList<Weapon>();
 
     private boolean fall_floor = false;
     @FXML
@@ -191,9 +193,9 @@ public class GameController implements Initializable {
     Helmet helmet;
 
     Coin coin;
-
+    Weapon1 weapon1;
+    Weapon2 weapon2;
     Player player;
-
 
     //    Function to create required translate transition object
     public static TranslateTransition translate_an_object(Node obj, double x_cord, double y_cord, int duration_set) {
@@ -251,7 +253,7 @@ public class GameController implements Initializable {
 //        hero_up_down_translate_object.stop();
 //    }
 
-    //    Function to start indefinite orc jumps
+       // Function to start indefinite orc jumps
     public  void move_orc() {
         final Timeline timeline = new Timeline();
         TranslateTransition translate_object = translate_an_object(orc, 0, -120, 1000);
@@ -316,6 +318,36 @@ public class GameController implements Initializable {
         }
 
     }
+    public void move_weapon_foward(int number) {
+        if(number < 1) {
+            return;
+        }
+        else {
+            TranslateTransition translate_object1 = translate_an_object(weapon, 1,0 , 1);
+            if(number == 2)
+            {
+                System.out.println("hello");
+                translate_object1.setOnFinished(e -> move_weapon_backward());
+            }
+            else
+            {
+                translate_object1.setOnFinished(e -> move_weapon_foward(number -1));
+            }
+            translate_object1.play();
+        }
+    }
+    public void move_weapon_backward()
+    {
+        if(group_hero.localToParent(hero.getBoundsInParent()).intersects(group_hero.localToParent(weapon.getBoundsInParent())))
+        {
+            return;
+        }
+        else {
+            TranslateTransition translate_object1 = translate_an_object(weapon, -1,0 , 1);
+            translate_object1.setOnFinished(e -> move_weapon_backward());
+            translate_object1.play();
+        }
+    }
 
     public void move_ClickHero() {
         if(!move_click_hero_in_use) {
@@ -325,7 +357,8 @@ public class GameController implements Initializable {
 
 //            Move hero forward
             move_click_hero_in_use = true;
-            TranslateTransition translate_object = translate_an_object(orc, -100, 0, 500);
+            TranslateTransition translate_object = translate_an_object(weapon, 1, 0, 1);
+            translate_object.setOnFinished(e -> move_weapon_foward(100));
             translate_object.play();
             TranslateTransition translate_object1 = translate_an_object(group_game, -1,0 , 5);
             translate_object1.setOnFinished(e -> move_hero_small(100));
@@ -358,16 +391,6 @@ public class GameController implements Initializable {
         move_island(chest);
         // add_to_group();
     }
-
-//    public void add_to_group() {
-//        File file = new File("src/sample/islands7.png");
-//        Image image = new Image(file.toURI().toString());
-//        ImageView imageview = new ImageView(image);
-//        imageview.setLayoutX(495);
-//        imageview.setLayoutY(385);
-//        imageview.setFitHeight(150);
-//        imageview.setFitWidth(200);
-//    }
 
     public void pause_menu(javafx.scene.input.MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Setting.fxml"));
@@ -440,15 +463,25 @@ public class GameController implements Initializable {
         orcArrayList.add(new GreenOrc(green_orc));
         orcArrayList.add(new GreenOrc(green_orc));
 
+        weapon1 = new Weapon1(200,0,1,weapon);
+        weapon2 = new Weapon2(200,0,2,weapon);
+        weaponsList.add(weapon1);
+        weaponsList.add(weapon2);
+        player.setWeaponsList(weaponsList);
 //        Chests
         treasureChestArrayList.add(new CoinChest(chest));
-        treasureChestArrayList.add(new WeaponChest(chest2));
+        treasureChestArrayList.add(new WeaponChest(chest2,weapon1));
         treasureChestArrayList.add(new CoinChest(chest3));
-        treasureChestArrayList.add(new WeaponChest(chest4));
+        treasureChestArrayList.add(new WeaponChest(chest4,weapon2));
         treasureChestArrayList.add(new CoinChest(chest5));
-        treasureChestArrayList.add(new WeaponChest(chest6));
+        treasureChestArrayList.add(new WeaponChest(chest6,weapon1));
 
 
+        FadeTransition fade_obj = new FadeTransition();
+        fade_obj.setDuration(Duration.millis(1));
+        fade_obj.setToValue(0);
+        fade_obj.setNode(weapon);
+        fade_obj.play();
         startPlay();
     }
 }
