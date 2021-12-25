@@ -20,7 +20,7 @@ public class Player extends GameObject{
     private int score = 0;
     private int current_weapon_number;
     private boolean move_click_hero_in_use = false;
-
+    private boolean revive = false;
 
     public Player(/*float x_Coordinate, float y_Coordinate, float x_Speed, float y_Speed,*/ int jumpHeight, int jumpDistance, Helmet helmet, Coin coin ,ImageView hero) {
 //        super(x_Coordinate, y_Coordinate, x_Speed, y_Speed);
@@ -49,11 +49,6 @@ public class Player extends GameObject{
         for (Orc orc : orcArrayList) {
             orc.collision(this, group_game,group_hero);
         }
-//        if(this.getGobj().getBoundsInParent().intersects(group_game.localToParent(green_orc.getBoundsInParent()))) {
-//            TranslateTransition translate_object = translate_an_object(green_orc, 250, 0, 500);
-//            translate_object.play();
-//            translate_object.setOnFinished(e -> move_orc_down());
-//        }
     }
 
 //    Collision Functions Start
@@ -65,12 +60,6 @@ public class Player extends GameObject{
         }
         return false;
     }
-
-    public void setWeaponsList(ArrayList<Weapon> weaponsList)
-    {
-        helmet.setWeaponsList(weaponsList);
-    }
-
 
     public boolean check_falling_floor_collision(FallingFloor ff1, Group group_game, Group group_hero) {
         for (ImageView fallTile : ff1.getFalling_tiles()) {
@@ -139,7 +128,7 @@ public class Player extends GameObject{
         });
         translate_object1.play();
     }
-//
+
     //    Function to move hero on mouse click
     public void move_hero_small(int number, Label coin_count, ArrayList<Orc> orcArrayList, ArrayList<TreasureChest> treasureChestArrayList, Group group_game, Group group_hero) {
         if(number < 1) {
@@ -177,6 +166,10 @@ public class Player extends GameObject{
     }
 //    Movement Functions End
 
+    public void setWeaponsList(ArrayList<Weapon> weaponsList) {
+        helmet.setWeaponsList(weaponsList);
+    }
+
     public void Die() {
 
     }
@@ -194,14 +187,15 @@ public class Player extends GameObject{
     }
 
     public void Revive(AnchorPane content) throws IOException {
-        if (this.getCoin().getCoinCount() < 5) {
-            Parent root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
-            content.getChildren().setAll(root);
+        Parent root;
+        if (this.getCoin().getCoinCount() < 5 || revive) {
+            root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
         }
         else {
-            Parent root = FXMLLoader.load(getClass().getResource("RevivePage.fxml"));
-            content.getChildren().setAll(root);
+            revive = true;
+            root = FXMLLoader.load(getClass().getResource("RevivePage.fxml"));
         }
+        content.getChildren().setAll(root);
     }
 
     public void Kill() {
