@@ -18,7 +18,6 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
@@ -26,7 +25,9 @@ import java.util.ResourceBundle;
 
 import javafx.animation.Timeline;
 
-public class GameController implements Initializable, Serializable {
+public class GameController implements Initializable {
+
+    private boolean chest_open = false;
 
     private ArrayList<Island> islandsArrayList = new ArrayList<Island>();
 
@@ -34,8 +35,13 @@ public class GameController implements Initializable, Serializable {
 
     private ArrayList<TreasureChest> treasureChestArrayList = new ArrayList<TreasureChest>();
     private ArrayList<Weapon> weaponsList = new ArrayList<Weapon>();
+
+    private boolean fall_floor = false;
     @FXML
     private AnchorPane content;
+
+    private Stage stage;
+    private Scene scene;
 
     @FXML
     private ImageView heading;
@@ -204,7 +210,6 @@ public class GameController implements Initializable, Serializable {
         translate_object.setByY(y_cord);
         return translate_object;
     }
-<<<<<<< HEAD
        // Function to start indefinite orc jumps
     public  void move_orc() {
         final Timeline timeline = new Timeline();
@@ -224,14 +229,6 @@ public class GameController implements Initializable, Serializable {
     public void move_ClickHero() {
         player.move_ClickHero(distance, coin_count, orcArrayList, treasureChestArrayList, group_game, group_hero, weapon);
     }
-=======
-
-    public void move_ClickHero() {
-        player.move_ClickHero(distance, coin_count, orcArrayList, treasureChestArrayList, group_game, group_hero, weapon);
-    }
-
-    //    Function to start the game
->>>>>>> af775fe65075fa071d0ecacc3868b0dbf4327d3e
     public void startPlay() {
 //        Remove heading
         TranslateTransition translate_object = translate_an_object(heading, 0, -1000000000, 10);
@@ -245,15 +242,15 @@ public class GameController implements Initializable, Serializable {
         player.moveHero(content, islandsArrayList, ff1, ff2, group_game, group_hero, exit);
 
 //        Start orc jumps
-        for (Orc orc : orcArrayList) {
-            orc.move();
-        }
+        move_orc();
 
 //        Start moving island3 and chest
         for (Island island : islandsArrayList) {
             island.move();
         }
-        treasureChestArrayList.get(0).move();
+
+        move_island(chest);
+        // add_to_group();
     }
 
     public void pause_menu(javafx.scene.input.MouseEvent event) throws IOException {
@@ -281,7 +278,7 @@ public class GameController implements Initializable, Serializable {
         islandsArrayList.add(new Static_Island(island1));
         islandsArrayList.add(new Static_Island(island2));
         islandsArrayList.add(new Moving_Island(island3));
-        islandsArrayList.add(new Moving_Island(island4));
+        islandsArrayList.add(new Static_Island(island4));
         islandsArrayList.add(new Static_Island(island8));
         islandsArrayList.add(new Static_Island(island9));
         islandsArrayList.add(new Static_Island(island10));
@@ -332,7 +329,6 @@ public class GameController implements Initializable, Serializable {
         weaponsList.add(weapon1);
         weaponsList.add(weapon2);
         player.setWeaponsList(weaponsList);
-
 //        Chests
         treasureChestArrayList.add(new CoinChest(chest));
         treasureChestArrayList.add(new WeaponChest(chest2,weapon1));
@@ -341,6 +337,7 @@ public class GameController implements Initializable, Serializable {
         treasureChestArrayList.add(new CoinChest(chest5));
         treasureChestArrayList.add(new WeaponChest(chest6,weapon1));
 
+
         FadeTransition fade_obj = new FadeTransition();
         fade_obj.setDuration(Duration.millis(1));
         fade_obj.setToValue(0);
@@ -348,4 +345,6 @@ public class GameController implements Initializable, Serializable {
         fade_obj.play();
         startPlay();
     }
+
+
 }
