@@ -31,7 +31,7 @@
                   <Font name="Palatino Linotype" size="46.0" />
                </font>
             </Label>
-            <ImageView fx:id="coin" fitHeight="45.0" fitWidth="38.0" layoutX="67.0" layoutY="256.0" onMouseClicked="#reviveAction" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="coinImage" fitHeight="45.0" fitWidth="38.0" layoutX="67.0" layoutY="256.0" onMouseClicked="#reviveAction" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/assets/Coin.png" />
                </image>

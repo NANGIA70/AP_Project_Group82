@@ -38,6 +38,9 @@ public class GameController implements Initializable {
     @FXML
     private AnchorPane content;
 
+    private Stage stage;
+    private Scene scene;
+
     @FXML
     private ImageView heading;
     @FXML
@@ -125,15 +128,16 @@ public class GameController implements Initializable {
     @FXML
     private ImageView green_orc;
 
+    @FXML
+    private Label distance;
+    @FXML
+    private Label coin_count;
+
 
     @FXML
     private Group group_game;
     @FXML
     private Group group_hero;
-    @FXML
-    private Label distance;
-    @FXML
-    private Label coin_count;
 
     @FXML
     private ImageView FallingTile1;
@@ -156,7 +160,7 @@ public class GameController implements Initializable {
     @FXML
     private ImageView FallingTile10;
 
-    private TranslateTransition hero_up_down_translate_object;
+
 
     @FXML
     private ImageView red_orc1;
@@ -210,19 +214,26 @@ public class GameController implements Initializable {
     public  void move_hero() {
         final Timeline timeline = new Timeline();
         TranslateTransition translate_object = translate_an_object(group_hero, 0, -100, 1000);
-        hero_up_down_translate_object = translate_object;
         translate_object.setOnFinished(e -> hero_fall_down());
         translate_object.play();
     }
 
-    public void move_hero_under_gravity() {
+    public void move_hero_under_gravity() throws IOException {
         TranslateTransition translate_object1 = translate_an_object(group_hero, 0,1 , 10);
-        if(group_hero.localToParent(hero.getBoundsInParent()).intersects(group_game.localToParent(exit.getBoundsInParent())))
-        {
-            javafx.application.Platform.exit();
+
+        if(group_hero.localToParent(hero.getBoundsInParent()).intersects(group_game.localToParent(exit.getBoundsInParent()))) {
+            player.Revive(content);
+//            if (player.getCoin().getCoinCount() < 5) {
+//                Parent root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
+//                content.getChildren().setAll(root);
+//            }
+//            else {
+//                Parent root = FXMLLoader.load(getClass().getResource("RevivePage.fxml"));
+//                content.getChildren().setAll(root);
+//            }
         }
-        if(check_island_collision() || check_falling_floor_collision(ff1) || check_falling_floor_collision(ff2))
-        {
+
+        if(check_island_collision() || check_falling_floor_collision(ff1) || check_falling_floor_collision(ff2)) {
             if(!ff1.get_fall_floor_boolean() && check_falling_floor_collision(ff1))
             {
                 ff1.fallStart(0);
@@ -235,7 +246,13 @@ public class GameController implements Initializable {
             translate_object1.setOnFinished(e -> move_hero());
         }
         else {
-            translate_object1.setOnFinished(e -> move_hero_under_gravity());
+            translate_object1.setOnFinished(e -> {
+                try {
+                    move_hero_under_gravity();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            });
         }
         translate_object1.play();
     }
@@ -243,7 +260,13 @@ public class GameController implements Initializable {
     private void hero_fall_down() {
         //TranslateTransition translate_object1 = translate_an_object(hero, 0,100 , 1000);
         TranslateTransition translate_object1 = translate_an_object(group_hero, 0,1 , 10);
-        translate_object1.setOnFinished(e -> move_hero_under_gravity());
+        translate_object1.setOnFinished(e -> {
+            try {
+                move_hero_under_gravity();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
         translate_object1.play();
     }
 
@@ -269,20 +292,18 @@ public class GameController implements Initializable {
         translate_object.play();
     }
 
+//    collision of islands and player
     public boolean check_island_collision() {
-        return player.check_island_collision(islandsArrayList, group_game,group_hero);
+        return player.check_island_collision(islandsArrayList, group_game, group_hero);
     }
 
+//     Collision between falling floor and player
     public boolean check_falling_floor_collision(FallingFloor ff1) {
-        for (ImageView fallTile : ff1.getFalling_tiles()) {
-            if(group_hero.localToParent(hero.getBoundsInParent()).intersects(group_game.localToParent(fallTile.getBoundsInParent()))) {
-                return true;
-            }
-        }
-        return false;
+        return player.check_falling_floor_collision(ff1, group_game, group_hero);
     }
 
     public void check_collision() {
+//        Chests
         for (TreasureChest tc : treasureChestArrayList) {
             tc.collision(player, group_game,group_hero);
 
@@ -325,8 +346,6 @@ public class GameController implements Initializable {
 
 //            Move hero forward
             move_click_hero_in_use = true;
-            TranslateTransition translate_object = translate_an_object(orc, -100, 0, 500);
-            translate_object.play();
             TranslateTransition translate_object1 = translate_an_object(group_game, -1,0 , 5);
             translate_object1.setOnFinished(e -> move_hero_small(100));
             translate_object1.play();
@@ -345,7 +364,7 @@ public class GameController implements Initializable {
         translate_object1.play();
 
 //        Start hero jumps
-        move_hero();
+        player.moveHero(content, islandsArrayList, ff1, ff2, group_game, group_hero, exit);
 
 //        Start orc jumps
         move_orc();
@@ -358,16 +377,6 @@ public class GameController implements Initializable {
         move_island(chest);
         // add_to_group();
     }
-
-//    public void add_to_group() {
-//        File file = new File("src/sample/islands7.png");
-//        Image image = new Image(file.toURI().toString());
-//        ImageView imageview = new ImageView(image);
-//        imageview.setLayoutX(495);
-//        imageview.setLayoutY(385);
-//        imageview.setFitHeight(150);
-//        imageview.setFitWidth(200);
-//    }
 
     public void pause_menu(javafx.scene.input.MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Setting.fxml"));
@@ -451,4 +460,6 @@ public class GameController implements Initializable {
 
         startPlay();
     }
+
+
 }
