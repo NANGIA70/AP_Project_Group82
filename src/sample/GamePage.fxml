@@ -95,9 +95,9 @@
                         <Image url="@../assets/assets/ChestClosed.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="island4" fitHeight="150.0" fitWidth="200.0" layoutX="1296.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
+                <ImageView fx:id="island4" fitHeight="150.0" fitWidth="200.0" layoutX="1196.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
                     <image>
-                        <Image url="@../assets/assets/Islands3.png" />
+                        <Image url="@../assets/assets/Islands1.png" />
                     </image>
                 </ImageView>
                 <ImageView fx:id="green_orc" fitHeight="50.0" fitWidth="96.0" layoutX="1326.0" layoutY="294.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">

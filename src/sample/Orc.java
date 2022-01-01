@@ -15,6 +15,7 @@ public abstract class Orc extends GameObject{
     private int jumpDistance;
     private int healthpoints;
     private boolean orc_dead = false;
+    private boolean collision_taking_place = false;
     //private  TranslateTransition orc_translate_object ;
     public Orc(ImageView orc,int healthpoints)
     {
@@ -27,14 +28,23 @@ public abstract class Orc extends GameObject{
 
         if(group_hero.localToParent(obj.getGobj().getBoundsInParent()).intersects(group_game.localToParent(this.getGobj().getBoundsInParent())))
         {
-            TranslateTransition translate_object = translate_an_object(this.getGobj(), 225, 0, 200);
-            this.setX_Coordinate(this.getX_Coordinate() + 225);
-            translate_object.play();
+            if(collision_taking_place == false)
+            {
+                collision_taking_place = true;
+                TranslateTransition translate_object = translate_an_object(this.getGobj(), 250, 0, 200);
+                this.setX_Coordinate(this.getX_Coordinate() + 225);
+                translate_object.setOnFinished(e -> set_orc_collision());
+                translate_object.play();
+                return true;
+            }
             return true;
         }
         return false;
     }
-
+    public void set_orc_collision()
+    {
+        collision_taking_place = false;
+    }
     public boolean collision_weapon(GameObject obj, Group group_game, Group group_hero) {
         return group_hero.localToParent(obj.getGobj().getBoundsInParent()).intersects(group_game.localToParent(this.getGobj().getBoundsInParent()));
     }

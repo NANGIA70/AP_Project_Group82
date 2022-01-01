@@ -164,7 +164,12 @@ public class BossOrc extends Orc {
         TranslateTransition translate_object3 = translate_an_object(this.getGobj(), 0,1000 , 500);
         translate_object3.play();
     }
-    public void game_over(AnchorPane content) throws IOException {
+
+    public void game_over()
+    {
+        
+    public void game_over(AnchorPane content) throws IOException
+    {
         Parent root = FXMLLoader.load(getClass().getResource("WinPage.fxml"));
         content.getChildren().setAll(root);
     }
