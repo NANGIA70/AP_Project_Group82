@@ -36,10 +36,7 @@ public class BossOrc extends Orc {
         translate_object.play();
     }
     public void move_boss_under_gravity(AnchorPane content, ArrayList<Island> islandsArrayList, Group group_game, Group group_hero,Player player,ImageView exit) throws IOException {
-        if(boss_dead == true)
-        {
-            return;
-        }
+
         TranslateTransition translate_object1 = translate_an_object(this.getGobj(), 0,1 , 5);
         if(group_hero.localToParent(this.getGobj().getBoundsInParent()).intersects(group_game.localToParent(exit.getBoundsInParent())))
         {
@@ -158,16 +155,19 @@ public class BossOrc extends Orc {
     {
         return group_hero.localToParent(obj.getGobj().getBoundsInParent()).intersects(group_game.localToParent(this.getGobj().getBoundsInParent()));
     }
-    public void death()
+    public void death(AnchorPane content)
     {
         boss_dead = true;
         TranslateTransition translate_object3 = translate_an_object(this.getGobj(), 0,1000 , 500);
+        translate_object3.setOnFinished(e -> {
+            try {
+                game_over(content);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
         translate_object3.play();
     }
-
-    public void game_over()
-    {
-        
     public void game_over(AnchorPane content) throws IOException
     {
         Parent root = FXMLLoader.load(getClass().getResource("WinPage.fxml"));

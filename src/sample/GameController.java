@@ -214,7 +214,7 @@ public class GameController implements Initializable {
     //    Function to start indefinite island movement
 
     public void move_ClickHero() {
-        player.move_ClickHero(distance, coin_count, orcArrayList, treasureChestArrayList, group_game, group_hero, weapon,boss);
+        player.move_ClickHero(distance, coin_count, orcArrayList, treasureChestArrayList, group_game, group_hero, weapon,boss,content);
     }
     public void switch_to_weapon1()
     {

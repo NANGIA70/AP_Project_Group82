@@ -198,7 +198,7 @@ public class Player extends GameObject{
     {
         return boss.check_collision_with_player(this,group_game,group_hero);
     }
-    public void move_ClickHero(Label distance, Label coin_count, ArrayList<Orc> orcArrayList, ArrayList<TreasureChest> treasureChestArrayList, Group group_game, Group group_hero, ImageView weapon, BossOrc boss) {
+    public void move_ClickHero(Label distance, Label coin_count, ArrayList<Orc> orcArrayList, ArrayList<TreasureChest> treasureChestArrayList, Group group_game, Group group_hero, ImageView weapon, BossOrc boss,AnchorPane content) {
         if(!move_click_hero_in_use) {
 //            Update distance
             this.increaseScore();
@@ -209,7 +209,7 @@ public class Player extends GameObject{
 
 //            Weapon
             TranslateTransition translate_object = translate_an_object(weapon, 1, 0, 1);
-            translate_object.setOnFinished(e -> move_weapon_forward(100, group_hero, weapon,orcArrayList,group_game,coin_count,boss));
+            translate_object.setOnFinished(e -> move_weapon_forward(100, group_hero, weapon,orcArrayList,group_game,coin_count,boss,content));
             translate_object.play();
 
             TranslateTransition translate_object1 = translate_an_object(group_game, -1,0 , 5);
@@ -302,7 +302,7 @@ public class Player extends GameObject{
     }
 
 //    Weapon functions
-    public void move_weapon_forward(int number, Group group_hero, ImageView weapon, ArrayList<Orc> orcArrayList,Group group_game,Label coin_count,BossOrc boss) {
+    public void move_weapon_forward(int number, Group group_hero, ImageView weapon, ArrayList<Orc> orcArrayList,Group group_game,Label coin_count,BossOrc boss,AnchorPane content) {
         int check = 1;
         for (Orc orc : orcArrayList)
         {
@@ -321,7 +321,7 @@ public class Player extends GameObject{
             boss.setHealth(boss.getHealth() - helmet.getWeaponsList().get(get_current_weapon_number()).getDamage());
             if(boss.getHealth() < 0)
             {
-                boss.death();
+                boss.death(content);
             }
             TranslateTransition translate_object4 = translate_an_object(weapon, 0,0 , 0);
             translate_object4.setOnFinished(e -> move_weapon_backward(group_hero, weapon));
@@ -337,7 +337,7 @@ public class Player extends GameObject{
                 translate_object1.setOnFinished(e -> move_weapon_backward(group_hero, weapon));
             }
             else {
-                translate_object1.setOnFinished(e -> move_weapon_forward(number -1, group_hero, weapon, orcArrayList,group_game,coin_count,boss));
+                translate_object1.setOnFinished(e -> move_weapon_forward(number -1, group_hero, weapon, orcArrayList,group_game,coin_count,boss,content));
             }
             translate_object1.play();
         }
