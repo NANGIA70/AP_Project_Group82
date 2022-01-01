@@ -22,10 +22,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Random;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import javafx.util.Duration;
 import javafx.animation.KeyFrame;
@@ -134,7 +131,7 @@ public class HomeController implements Initializable {
     public void startPlay(javafx.scene.input.MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("GamePage.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root,1200, 645);
+        scene = new Scene(root, 1200, 645);
         stage.setScene(scene);
         stage.show();
     }

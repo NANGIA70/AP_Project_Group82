@@ -1,20 +1,18 @@
 package sample;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.awt.event.MouseEvent;
+import java.awt.*;
 import java.io.IOException;
 
-public class SettingsController {
+public class ReviveController {
     private Stage stage;
     private Scene scene;
 
@@ -25,16 +23,21 @@ public class SettingsController {
     @FXML
     private ImageView background;
     @FXML
-    private ImageView Menu_background;
+    private ImageView reviveBackground;
     @FXML
-    private ImageView quit;
+    private ImageView coinImage;
     @FXML
-    private ImageView resume;
+    private ImageView reviveButton1;
     @FXML
-    private ImageView save;
+    private ImageView reviveButton2;
 
+    @FXML
+    private javafx.scene.control.Label revive;
+    @FXML
+    private javafx.scene.control.Label noThanks;
 
-    public void resume_action(javafx.scene.input.MouseEvent event) throws IOException {
+    public void reviveAction(javafx.scene.input.MouseEvent event) throws IOException {
+//        if ()
         Parent root = FXMLLoader.load(getClass().getResource("GamePage.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root, 1200, 645);
@@ -42,7 +45,7 @@ public class SettingsController {
         stage.show();
     }
 
-    public void quit_action(javafx.scene.input.MouseEvent event) throws IOException {
+    public void noAction(javafx.scene.input.MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root, 1200, 645);

@@ -1,7 +1,7 @@
 package sample;
 
+import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,15 +26,13 @@ import java.util.ResourceBundle;
 import javafx.animation.Timeline;
 
 public class GameController implements Initializable {
-    private boolean flag = false;
-    private boolean pause_flag = false;
-    private boolean chest_open = false;
 
-    private int count = 0;
-    private int coinCount = 0;
-    private ArrayList<Node> islands = new ArrayList<>();
-    private ArrayList<Node> falling_tiles = new ArrayList<>();
-    private boolean fall_floor = false;
+    private ArrayList<Island> islandsArrayList = new ArrayList<Island>();
+
+    private ArrayList<Orc> orcArrayList = new ArrayList<Orc>();
+
+    private ArrayList<TreasureChest> treasureChestArrayList = new ArrayList<TreasureChest>();
+    private ArrayList<Weapon> weaponsList = new ArrayList<Weapon>();
     @FXML
     private AnchorPane content;
 
@@ -99,6 +97,18 @@ public class GameController implements Initializable {
     @FXML
     private ImageView island27;
     @FXML
+    private ImageView island28;
+    @FXML
+    private ImageView island29;
+    @FXML
+    private ImageView island30;
+    @FXML
+    private ImageView island31;
+    @FXML
+    private ImageView island32;
+    @FXML
+    private ImageView island33;
+    @FXML
     private ImageView hero;
     @FXML
     private ImageView chest;
@@ -111,17 +121,21 @@ public class GameController implements Initializable {
     @FXML
     private ImageView pause;
     @FXML
-    private ImageView coin;
+    private ImageView coinImage;
     @FXML
     private ImageView green_orc;
-
-    @FXML
-    private Group group_game;
 
     @FXML
     private Label distance;
     @FXML
     private Label coin_count;
+
+
+    @FXML
+    private Group group_game;
+    @FXML
+    private Group group_hero;
+
     @FXML
     private ImageView FallingTile1;
     @FXML
@@ -132,10 +146,60 @@ public class GameController implements Initializable {
     private ImageView FallingTile4;
     @FXML
     private ImageView FallingTile5;
-    private TranslateTransition hero_up_down_translate_object;
+    @FXML
+    private ImageView FallingTile6;
+    @FXML
+    private ImageView FallingTile7;
+    @FXML
+    private ImageView FallingTile8;
+    @FXML
+    private ImageView FallingTile9;
+    @FXML
+    private ImageView FallingTile10;
 
-    private boolean move_click_hero_in_use = false;
 
+
+    @FXML
+    private ImageView red_orc1;
+    @FXML
+    private ImageView red_orc2;
+    @FXML
+    private ImageView red_orc3;
+    @FXML
+    private ImageView green_orc3;
+    @FXML
+    private ImageView green_orc2;
+    @FXML
+    private ImageView green_orc1;
+    @FXML
+    private ImageView chest6;
+    @FXML
+    private ImageView chest5;
+    @FXML
+    private ImageView chest4;
+    @FXML
+    private ImageView chest3;
+    @FXML
+    private ImageView boss_orc;
+    @FXML
+    private ImageView chest2;
+    @FXML
+    private ImageView weapon;
+    @FXML
+    private ImageView exit;
+    @FXML
+    private ImageView switch_to_weapon2;
+    @FXML
+    private ImageView switch_to_weapon1;
+    private FallingFloor ff1;
+    private FallingFloor ff2;
+    private Helmet helmet;
+
+    private Coin coin;
+    private Weapon1 weapon1;
+    private Weapon2 weapon2;
+    private Player player;
+    private BossOrc boss;
 
     //    Function to create required translate transition object
     public static TranslateTransition translate_an_object(Node obj, double x_cord, double y_cord, int duration_set) {
@@ -147,154 +211,30 @@ public class GameController implements Initializable {
         translate_object.setByY(y_cord);
         return translate_object;
     }
-
-    //    Function to start indefinite hero jumps
-    public  void move_hero() {
-        final Timeline timeline = new Timeline();
-        TranslateTransition translate_object = translate_an_object(hero, 0, -100, 1000);
-        hero_up_down_translate_object = translate_object;
-        translate_object.setOnFinished(e -> hero_fall_down());
-        translate_object.play();
-    }
-    public void move_hero_under_gravity()
-    {
-        TranslateTransition translate_object1 = translate_an_object(hero, 0,1 , 10);
-        if(check_island_collision() == true || check_falling_floor_collision() == true)
-        {
-            if(fall_floor == false && check_falling_floor_collision() == true )
-            {
-                fall_floor = true;
-                fall_start(0);
-            }
-            translate_object1.setOnFinished(e -> move_hero());
-        }
-        else
-        {
-            translate_object1.setOnFinished(e -> move_hero_under_gravity());
-        }
-        translate_object1.play();
-    }
-    private void hero_fall_down()
-    {
-        //TranslateTransition translate_object1 = translate_an_object(hero, 0,100 , 1000);
-        TranslateTransition translate_object1 = translate_an_object(hero, 0,1 , 10);
-        translate_object1.setOnFinished(e -> move_hero_under_gravity());
-        translate_object1.play();
-    }
-    private int fall_start(int number)
-    {
-        if(number > 4)
-        {
-            return -1;
-        }
-        TranslateTransition translate_object1 = translate_an_object(falling_tiles.get(number), 0,500 , 2500);
-        translate_object1.setOnFinished(e -> fall_start(number + 1));
-        translate_object1.play();
-        return -1;
-    }
-
-
-//    public void stop_hero() {
-//        hero_up_down_translate_object.stop();
-//    }
-
-    //    Function to start indefinite orc jumps
-    public  void move_orc() {
-        final Timeline timeline = new Timeline();
-        TranslateTransition translate_object = translate_an_object(orc, 0, -120, 1000);
-        translate_object.setAutoReverse(true);
-        translate_object.setCycleCount(Timeline.INDEFINITE);
-        translate_object.play();
-    }
-
     //    Function to start indefinite island movement
-    public  void move_island(ImageView island) {
-        final Timeline timeline = new Timeline();
-        TranslateTransition translate_object = translate_an_object(island, 0, 10, 1000);
-        translate_object.setAutoReverse(true);
-        translate_object.setCycleCount(Timeline.INDEFINITE);
-        translate_object.play();
-    }
-
-    public boolean check_island_collision() {
-        for(int i = 0; i < 24; i++) {
-            if(hero.getBoundsInParent().intersects(group_game.localToParent(islands.get(i).getBoundsInParent()))) {
-                return true;
-            }
-       }
-        return false;
-   }
-    public boolean check_falling_floor_collision() {
-        for(int i = 0; i < 5; i++) {
-            if(hero.getBoundsInParent().intersects(group_game.localToParent(falling_tiles.get(i).getBoundsInParent()))) {
-                return true;
-            }
-        }
-        return false;
-    }
-    public void check_collision() {
-        if(hero.getBoundsInParent().intersects(group_game.localToParent(chest.getBoundsInParent())) && !chest_open) {
-//           Update chest status
-            chest_open = true;
-//                Update coinCount(Add coins)
-            Random rand = new Random();
-            coinCount += (1 + rand.nextInt(6));
-            coin_count.setText(String.valueOf(coinCount));
-
-
-//                Change chest image
-            File file = new File("src/sample/ChestOpen.png");
-            chest.setImage(new Image(file.toURI().toString()));
-        }
-        if(hero.getBoundsInParent().intersects(group_game.localToParent(green_orc.getBoundsInParent()))) {
-            TranslateTransition translate_object = translate_an_object(green_orc, 250, 0, 500);
-            translate_object.play();
-            translate_object.setOnFinished(e -> move_orc_down());
-        }
-    }
-
-    public void move_orc_down() {
-        TranslateTransition translate_object = translate_an_object(green_orc, 0, 400, 2000);
-        translate_object.play();
-    }
-
-    //    Function to move hero on mouse click
-    public void move_hero_small(int number) {
-        if(number < 1) {
-            move_click_hero_in_use = false;
-            return;
-        }
-        else {
-            check_collision();
-            TranslateTransition translate_object1 = translate_an_object(group_game, -1,0 , 5);
-            translate_object1.setOnFinished(e -> move_hero_small(number -1));
-            translate_object1.play();
-        }
-
-    }
 
     public void move_ClickHero() {
-        if(flag && !pause_flag && !move_click_hero_in_use) {
-            //            Update distance
-            count+=1;
-            distance.setText(String.valueOf(count));
-//            Move hero forward
-            move_click_hero_in_use = true;
-            TranslateTransition translate_object = translate_an_object(orc, -100, 0, 500);
-            translate_object.play();
-            TranslateTransition translate_object1 = translate_an_object(group_game, -1,0 , 5);
-            translate_object1.setOnFinished(e -> move_hero_small(100));
-            translate_object1.play();
-            check_collision();
-        }
-
+        player.move_ClickHero(distance, coin_count, orcArrayList, treasureChestArrayList, group_game, group_hero, weapon,boss);
     }
-
-    //    Function to start the game
+    public void switch_to_weapon1()
+    {
+        if(player.get_has_weapon1())
+        {
+            File file = new File("src/sample/WeaponAxe.png");
+            weapon.setImage(new Image(file.toURI().toString()));
+            player.getHelmet().equipWeapon(0);
+        }
+    }
+    public void switch_to_weapon2()
+    {
+        if(player.get_has_weapon2())
+        {
+            File file = new File("src/sample/WeaponShuriken.png");
+            weapon.setImage(new Image(file.toURI().toString()));
+            player.getHelmet().equipWeapon(1);
+        }
+    }
     public void startPlay() {
-//        Update marker
-        flag = true;
-
 //        Remove heading
         TranslateTransition translate_object = translate_an_object(heading, 0, -1000000000, 10);
         translate_object.play();
@@ -304,26 +244,19 @@ public class GameController implements Initializable {
         translate_object1.play();
 
 //        Start hero jumps
-        move_hero();
+        player.moveHero(content, islandsArrayList, ff1, ff2, group_game, group_hero, exit, coin_count,  orcArrayList,  treasureChestArrayList,boss);
 
 //        Start orc jumps
-        move_orc();
+        for (Orc orc : orcArrayList) {
+            orc.move();
+        }
 
 //        Start moving island3 and chest
-        move_island(island3);
-        move_island(chest);
-        // add_to_group();
+        for (Island island : islandsArrayList) {
+            island.move();
+        }
+        treasureChestArrayList.get(0).move();
     }
-
-//    public void add_to_group() {
-//        File file = new File("src/sample/islands7.png");
-//        Image image = new Image(file.toURI().toString());
-//        ImageView imageview = new ImageView(image);
-//        imageview.setLayoutX(495);
-//        imageview.setLayoutY(385);
-//        imageview.setFitHeight(150);
-//        imageview.setFitWidth(200);
-//    }
 
     public void pause_menu(javafx.scene.input.MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Setting.fxml"));
@@ -335,39 +268,87 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-//            translate_an_object(gr1, 400, 200, 1500).play();
-//        }));
-//        timeline.play();
-        islands.add(island1);
-        islands.add(island2);
-        islands.add(island3);
-        islands.add(island4);
-        islands.add(island8);
-        islands.add(island9);
-        islands.add(island10);
-        islands.add(island11);
-        islands.add(island12);
-        islands.add(island13);
-        islands.add(island14);
-        islands.add(island15);
-        islands.add(island16);
-        islands.add(island17);
-        islands.add(island18);
-        islands.add(island19);
-        islands.add(island20);
-        islands.add(island21);
-        islands.add(island22);
-        islands.add(island23);
-        islands.add(island24);
-        islands.add(island25);
-        islands.add(island26);
-        islands.add(island27);
-        falling_tiles.add(FallingTile1);
-        falling_tiles.add(FallingTile2);
-        falling_tiles.add(FallingTile3);
-        falling_tiles.add(FallingTile4);
-        falling_tiles.add(FallingTile5);
+        ff1 = new FallingFloor(FallingTile1);
+        ff2 = new FallingFloor(FallingTile6);
+        helmet = new Helmet();
+
+        coin = new Coin(0, coinImage);
+
+        player = new Player(100, 100, helmet, coin, hero);
+
+        islandsArrayList.add(new Static_Island(island1));
+        islandsArrayList.add(new Static_Island(island2));
+        islandsArrayList.add(new Moving_Island(island3));
+        islandsArrayList.add(new Static_Island(island4));
+        islandsArrayList.add(new Static_Island(island8));
+        islandsArrayList.add(new Static_Island(island9));
+        islandsArrayList.add(new Static_Island(island10));
+        islandsArrayList.add(new Static_Island(island11));
+        islandsArrayList.add(new Static_Island(island12));
+        islandsArrayList.add(new Moving_Island(island13));
+        islandsArrayList.add(new Static_Island(island14));
+        islandsArrayList.add(new Static_Island(island15));
+        islandsArrayList.add(new Static_Island(island16));
+        islandsArrayList.add(new Static_Island(island17));
+        islandsArrayList.add(new Static_Island(island18));
+        islandsArrayList.add(new Static_Island(island22));
+        islandsArrayList.add(new Static_Island(island23));
+        islandsArrayList.add(new Static_Island(island24));
+        islandsArrayList.add(new Static_Island(island25));
+        islandsArrayList.add(new Static_Island(island26));
+        islandsArrayList.add(new Static_Island(island27));
+        islandsArrayList.add(new Static_Island(island28));
+        islandsArrayList.add(new Static_Island(island29));
+        islandsArrayList.add(new Static_Island(island30));
+        islandsArrayList.add(new Static_Island(island31));
+        islandsArrayList.add(new Static_Island(island32));
+        islandsArrayList.add(new Static_Island(island33));
+//        Falling tiles 1
+        ff1.addTiles(FallingTile2);
+        ff1.addTiles(FallingTile3);
+        ff1.addTiles(FallingTile4);
+        ff1.addTiles(FallingTile5);
+
+//        Falling tiles 2
+        ff2.addTiles(FallingTile7);
+        ff2.addTiles(FallingTile8);
+        ff2.addTiles(FallingTile9);
+        ff2.addTiles(FallingTile10);
+
+//        Red Orcs
+        orcArrayList.add(new RedOrc(red_orc1,100));
+        orcArrayList.add(new RedOrc(red_orc2,100));
+        orcArrayList.add(new RedOrc(red_orc3,100));
+
+//        Green Orcs
+        orcArrayList.add(new GreenOrc(green_orc,100));
+        orcArrayList.add(new GreenOrc(green_orc3,100));
+        orcArrayList.add(new GreenOrc(green_orc2,100));
+
+        boss = new BossOrc(boss_orc,2000);
+
+        weapon1 = new Weapon1(0,0,0, weapon);
+        weapon2 = new Weapon2(0,0,1, weapon);
+        weaponsList.add(weapon1);
+        weaponsList.add(weapon2);
+        player.setWeaponsList(weaponsList,1);
+
+//        Chests
+        treasureChestArrayList.add(new CoinChest(chest));
+        treasureChestArrayList.add(new WeaponChest(chest2,weapon1));
+        treasureChestArrayList.add(new CoinChest(chest3));
+        treasureChestArrayList.add(new WeaponChest(chest4,weapon2));
+        treasureChestArrayList.add(new CoinChest(chest5));
+        treasureChestArrayList.add(new WeaponChest(chest6,weapon1));
+
+
+        FadeTransition fade_obj = new FadeTransition();
+        fade_obj.setDuration(Duration.millis(1));
+        fade_obj.setToValue(0);
+        fade_obj.setNode(weapon);
+        fade_obj.play();
         startPlay();
     }
+
+
 }
