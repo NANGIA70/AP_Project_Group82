@@ -218,8 +218,7 @@ public class Player extends GameObject{
             translate_object1.play();
 
             check_collision(coin_count, orcArrayList, treasureChestArrayList, group_game, group_hero);
-            if(check_collision_with_boss(boss,group_hero,group_hero) == true )
-            {
+            if(check_collision_with_boss(boss,group_hero,group_hero) == true ) {
                 boss.move_();
             }
         }
@@ -244,7 +243,8 @@ public class Player extends GameObject{
 
     public void Revive(AnchorPane content) throws IOException {
         Parent root;
-        if (this.getCoin().getCoinCount() < 5 || revive) {
+        if (this.getCoin().getCoinCount() < 15 ) {
+            this.getCoin().addCoins(-15);
             root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
         }
         else {
