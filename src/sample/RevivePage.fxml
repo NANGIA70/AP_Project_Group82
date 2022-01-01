@@ -26,26 +26,26 @@
                         <Image url="@../assets/assets/ReviveButton.jpg" />
                     </image>
                 </ImageView>
-            <Label fx:id="revive" layoutX="32.0" layoutY="245.0" onMouseClicked="#reviveAction" text="5" textFill="WHITE">
-               <font>
-                  <Font name="Palatino Linotype" size="46.0" />
-               </font>
-            </Label>
-            <ImageView fx:id="coinImage" fitHeight="45.0" fitWidth="38.0" layoutX="67.0" layoutY="256.0" onMouseClicked="#reviveAction" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/assets/Coin.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="reviveButton2" fitHeight="150.0" fitWidth="200.0" layoutX="-39.0" layoutY="368.0" onMouseClicked="#noAction" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/assets/ReviveButton.jpg" />
-               </image>
-            </ImageView>
-            <Label fx:id="noThanks" layoutX="2.0" layoutY="381.0" onMouseClicked="#noAction" text="No Thanks" textFill="WHITE">
-               <font>
-                  <Font name="Palatino Linotype" size="24.0" />
-               </font>
-            </Label>
+                <Label fx:id="revive" layoutX="32.0" layoutY="245.0" onMouseClicked="#reviveAction" text="5" textFill="WHITE">
+                    <font>
+                        <Font name="Palatino Linotype" size="46.0" />
+                    </font>
+                </Label>
+                <ImageView fx:id="coinImage" fitHeight="45.0" fitWidth="38.0" layoutX="67.0" layoutY="256.0" onMouseClicked="#reviveAction" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../assets/assets/Coin.png" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="reviveButton2" fitHeight="150.0" fitWidth="200.0" layoutX="-39.0" layoutY="368.0" onMouseClicked="#noAction" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../assets/assets/ReviveButton.jpg" />
+                    </image>
+                </ImageView>
+                <Label fx:id="noThanks" layoutX="2.0" layoutY="381.0" onMouseClicked="#noAction" text="No Thanks" textFill="WHITE">
+                    <font>
+                        <Font name="Palatino Linotype" size="24.0" />
+                    </font>
+                </Label>
             </children>
         </Group>
     </children>

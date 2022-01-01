@@ -1,9 +1,14 @@
 package sample;
 
 import javafx.animation.TranslateTransition;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,7 +43,7 @@ public class BossOrc extends Orc {
         TranslateTransition translate_object1 = translate_an_object(this.getGobj(), 0,1 , 5);
         if(group_hero.localToParent(this.getGobj().getBoundsInParent()).intersects(group_game.localToParent(exit.getBoundsInParent())))
         {
-            game_over();
+            game_over(content);
         }
         if(check_island_collision(islandsArrayList, group_game, group_hero))
         {
@@ -159,8 +164,13 @@ public class BossOrc extends Orc {
         TranslateTransition translate_object3 = translate_an_object(this.getGobj(), 0,1000 , 500);
         translate_object3.play();
     }
+
     public void game_over()
     {
         
+    public void game_over(AnchorPane content) throws IOException
+    {
+        Parent root = FXMLLoader.load(getClass().getResource("WinPage.fxml"));
+        content.getChildren().setAll(root);
     }
 }
