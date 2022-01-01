@@ -28,7 +28,7 @@ import javafx.util.Duration;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 
-public  class  HomeController implements Initializable {
+public class HomeController implements Initializable {
     private boolean flag = false;
     private boolean pause_flag = false;
     private boolean chest_open = false;
@@ -80,6 +80,7 @@ public  class  HomeController implements Initializable {
     private Label distance;
     @FXML
     private Label coin_count;
+
 
 //    Function to create required translate transition object
     public static TranslateTransition translate_an_object(Node obj, double x_cord, double y_cord, int duration_set) {
@@ -134,6 +135,7 @@ public  class  HomeController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 

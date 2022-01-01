@@ -9,11 +9,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class ReviveController {
     private Stage stage;
     private Scene scene;
+
+
     @FXML
     private AnchorPane content;
 
@@ -34,7 +37,6 @@ public class ReviveController {
     private javafx.scene.control.Label noThanks;
 
     public void reviveAction(javafx.scene.input.MouseEvent event) throws IOException {
-//        if ()
         Parent root = FXMLLoader.load(getClass().getResource("GamePage.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root, 1200, 645);
@@ -42,7 +44,8 @@ public class ReviveController {
         stage.show();
     }
 
-    public void noAction(javafx.scene.input.MouseEvent event) throws IOException {
+    public void noAction(javafx.scene.input.MouseEvent event) throws IOException
+    {
         Parent root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root, 1200, 645);

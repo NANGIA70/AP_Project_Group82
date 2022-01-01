@@ -244,7 +244,9 @@ public class Player extends GameObject{
 
     public void Revive(AnchorPane content) throws IOException {
         Parent root;
-        if (this.getCoin().getCoinCount() < 5 || revive) {
+        if (this.getCoin().getCoinCount() < 15 )
+        {
+            this.getCoin().addCoins(-15);
             root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
         }
         else {
@@ -252,10 +254,6 @@ public class Player extends GameObject{
             root = FXMLLoader.load(getClass().getResource("RevivePage.fxml"));
         }
         content.getChildren().setAll(root);
-    }
-
-    public void Kill() {
-
     }
 
     //    Getters and Setters
