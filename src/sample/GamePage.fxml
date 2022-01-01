@@ -26,7 +26,7 @@
                         <Image url="@../assets/assets/Helmet4.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="weapon" fitHeight="40.0" fitWidth="40.0" layoutX="585.0" layoutY="320.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
+                <ImageView fx:id="weapon" fitHeight="40.0" fitWidth="40.0" layoutX="585.0" layoutY="310.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
                     <image>
                         <Image url="@../assets/assets/WeaponAxe.png" />
                     </image>

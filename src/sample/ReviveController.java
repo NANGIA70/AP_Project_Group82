@@ -9,14 +9,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
 
 public class ReviveController {
     private Stage stage;
     private Scene scene;
-
-
     @FXML
     private AnchorPane content;
 

@@ -1,9 +1,7 @@
 package sample;
 
-import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Group;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
@@ -18,34 +16,38 @@ public class BossOrc extends Orc {
     {
         super(orc,healthpoints);
     }
-    public void moveBoss(AnchorPane content, ArrayList<Island> islandsArrayList, Group group_game, Group group_hero,Player player) {
+    public void moveBoss(AnchorPane content, ArrayList<Island> islandsArrayList, Group group_game, Group group_hero,Player player,ImageView exit) {
         if(boss_dead == true)
         {
             return;
         }
-        TranslateTransition translate_object = translate_an_object(this.getGobj(), 0, -50, 500);
-        translate_object.setOnFinished(e -> boss_fall_down(content, islandsArrayList, group_game, group_hero,player));
+        TranslateTransition translate_object = translate_an_object(this.getGobj(), 0, -48, 500);
+        translate_object.setOnFinished(e -> boss_fall_down(content, islandsArrayList, group_game, group_hero,player,exit));
         alternate+=1;
         if(alternate %2 == 0)
         {
-            move_boss_horizontly(group_game,group_hero,player);
+            move_boss_horizontally(group_game,group_hero,player);
         }
         translate_object.play();
     }
-    public void move_boss_under_gravity(AnchorPane content, ArrayList<Island> islandsArrayList, Group group_game, Group group_hero,Player player) throws IOException {
+    public void move_boss_under_gravity(AnchorPane content, ArrayList<Island> islandsArrayList, Group group_game, Group group_hero,Player player,ImageView exit) throws IOException {
         if(boss_dead == true)
         {
             return;
         }
         TranslateTransition translate_object1 = translate_an_object(this.getGobj(), 0,1 , 5);
+        if(group_hero.localToParent(this.getGobj().getBoundsInParent()).intersects(group_game.localToParent(exit.getBoundsInParent())))
+        {
+            game_over();
+        }
         if(check_island_collision(islandsArrayList, group_game, group_hero))
         {
-            translate_object1.setOnFinished(e -> moveBoss(content, islandsArrayList, group_game, group_hero,player));
+            translate_object1.setOnFinished(e -> moveBoss(content, islandsArrayList, group_game, group_hero,player,exit));
         }
         else {
             translate_object1.setOnFinished(e -> {
                 try {
-                    this.move_boss_under_gravity(content, islandsArrayList, group_game, group_hero,player);
+                    this.move_boss_under_gravity(content, islandsArrayList, group_game, group_hero,player,exit);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
@@ -62,7 +64,7 @@ public class BossOrc extends Orc {
         }
         return false;
     }
-    private void boss_fall_down(AnchorPane content, ArrayList<Island> islandsArrayList, Group group_game, Group group_hero,Player player) {
+    private void boss_fall_down(AnchorPane content, ArrayList<Island> islandsArrayList, Group group_game, Group group_hero,Player player,ImageView exit) {
         if(boss_dead == true)
         {
             return;
@@ -70,7 +72,7 @@ public class BossOrc extends Orc {
         TranslateTransition translate_object1 = translate_an_object(this.getGobj(), 0,1 , 10);
         translate_object1.setOnFinished(e -> {
             try {
-                move_boss_under_gravity(content, islandsArrayList, group_game, group_hero,player);
+                move_boss_under_gravity(content, islandsArrayList, group_game, group_hero,player,exit);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -98,7 +100,7 @@ public class BossOrc extends Orc {
         }
     }
 
-    public void move_boss_horizontly(Group group_game, Group group_hero,Player player)
+    public void move_boss_horizontally(Group group_game, Group group_hero, Player player)
     {
         if(boss_dead == true)
         {
@@ -155,7 +157,10 @@ public class BossOrc extends Orc {
     {
         boss_dead = true;
         TranslateTransition translate_object3 = translate_an_object(this.getGobj(), 0,1000 , 500);
-        translate_object3.setOnFinished(e -> make_check_if_boss_hit_false());
         translate_object3.play();
+    }
+    public void game_over()
+    {
+        //
     }
 }

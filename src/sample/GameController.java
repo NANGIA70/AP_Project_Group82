@@ -248,7 +248,7 @@ public class GameController implements Initializable {
 
 //        Start orc jumps
         for (Orc orc : orcArrayList) {
-            orc.move();
+            orc.move_orc(content,islandsArrayList,group_game,group_hero,exit,player);
         }
 
 //        Start moving island3 and chest
@@ -274,7 +274,7 @@ public class GameController implements Initializable {
 
         coin = new Coin(0, coinImage);
 
-        player = new Player(100, 100, helmet, coin, hero);
+        player = new Player(100, 100, helmet, coin, hero,coin_count);
 
         islandsArrayList.add(new Static_Island(island1));
         islandsArrayList.add(new Static_Island(island2));
@@ -325,7 +325,7 @@ public class GameController implements Initializable {
         orcArrayList.add(new GreenOrc(green_orc3,100));
         orcArrayList.add(new GreenOrc(green_orc2,100));
 
-        boss = new BossOrc(boss_orc,2000);
+        boss = new BossOrc(boss_orc,4000);
 
         weapon1 = new Weapon1(0,0,0, weapon);
         weapon2 = new Weapon2(0,0,1, weapon);
@@ -340,8 +340,6 @@ public class GameController implements Initializable {
         treasureChestArrayList.add(new WeaponChest(chest4,weapon2));
         treasureChestArrayList.add(new CoinChest(chest5));
         treasureChestArrayList.add(new WeaponChest(chest6,weapon1));
-
-
         FadeTransition fade_obj = new FadeTransition();
         fade_obj.setDuration(Duration.millis(1));
         fade_obj.setToValue(0);

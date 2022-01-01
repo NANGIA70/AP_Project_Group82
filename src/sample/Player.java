@@ -17,15 +17,14 @@ public class Player extends GameObject{
     private int jumpDistance;
     private Helmet helmet;
     private Coin coin;
-
     private int score = 0;
+    private Label coin_count_2;
     private boolean move_click_hero_in_use = false;
     private boolean hasweapon = false;
     private boolean revive = false;
     private boolean has_reached_boss = false;
     private boolean has_weapon1 = false;
     private boolean has_weapon2 = false;
-
     public boolean get_has_weapon1()
     {
         return has_weapon1;
@@ -42,12 +41,13 @@ public class Player extends GameObject{
     {
         has_weapon2 = true;
     }
-    public Player(int jumpHeight, int jumpDistance, Helmet helmet, Coin coin ,ImageView hero) {
+    public Player(int jumpHeight, int jumpDistance, Helmet helmet, Coin coin ,ImageView hero,Label coin_count_2) {
         super(hero);
         this.jumpHeight = jumpHeight;
         this.jumpDistance = jumpDistance;
         this.helmet = helmet;
         this.coin = coin;
+        this.coin_count_2 = coin_count_2;
     }
 
     @Override
@@ -70,10 +70,10 @@ public class Player extends GameObject{
             orc.collision(this, group_game,group_hero);
         }
     }
-    public void addmyCoins(int num_coins,Label coin_count)
+    public void addmyCoins(int num_coins)
     {
         this.addCoins(num_coins);
-        coin_count.setText(String.valueOf(this.getCoin().getCoinCount()));
+        coin_count_2.setText(String.valueOf(this.getCoin().getCoinCount()));
     }
 
 //    Collision Functions Start
@@ -122,12 +122,14 @@ public class Player extends GameObject{
     public void moveHero(AnchorPane content, ArrayList<Island> islandsArrayList, FallingFloor ff1, FallingFloor ff2, Group group_game, Group group_hero, ImageView exit,Label coin_count, ArrayList<Orc> orcArrayList, ArrayList<TreasureChest> treasureChestArrayList,BossOrc boss) {
         final Timeline timeline = new Timeline();
         TranslateTransition translate_object = translate_an_object(group_hero, 0, -100, 1000);
+        this.setY_Coordinate(this.getY_Coordinate() + 100);
         translate_object.setOnFinished(e -> hero_fall_down(content, islandsArrayList, ff1, ff2, group_game, group_hero, exit, coin_count,  orcArrayList,  treasureChestArrayList,boss));
         translate_object.play();
     }
 
     public void move_hero_under_gravity(AnchorPane content, ArrayList<Island> islandsArrayList, FallingFloor ff1, FallingFloor ff2, Group group_game, Group group_hero, ImageView exit,Label coin_count, ArrayList<Orc> orcArrayList, ArrayList<TreasureChest> treasureChestArrayList,BossOrc boss) throws IOException {
         TranslateTransition translate_object1 = translate_an_object(group_hero, 0,1 , 10);
+        this.setY_Coordinate(this.getY_Coordinate() - 1);
         check_collision(coin_count, orcArrayList, treasureChestArrayList, group_game, group_hero);
         if(group_hero.localToParent(this.getGobj().getBoundsInParent()).intersects(group_game.localToParent(exit.getBoundsInParent()))) {
             this.Revive(content);
@@ -135,7 +137,7 @@ public class Player extends GameObject{
         if(check_for_boss_islands(islandsArrayList,group_game,group_hero) && !has_reached_boss)
         {
             has_reached_boss = true;
-            boss.moveBoss(content,islandsArrayList,group_game,group_hero,this);
+            boss.moveBoss(content,islandsArrayList,group_game,group_hero,this,exit);
         }
         if(check_island_collision(islandsArrayList, group_game, group_hero) || check_falling_floor_collision(ff1, group_game, group_hero) || check_falling_floor_collision(ff2, group_game, group_hero)) {
             if(!ff1.get_fall_floor_boolean() && check_falling_floor_collision(ff1, group_game, group_hero)) {
@@ -162,7 +164,8 @@ public class Player extends GameObject{
     }
 
     private void hero_fall_down(AnchorPane content, ArrayList<Island> islandsArrayList, FallingFloor ff1, FallingFloor ff2, Group group_game, Group group_hero, ImageView exit,Label coin_count, ArrayList<Orc> orcArrayList, ArrayList<TreasureChest> treasureChestArrayList,BossOrc boss) {
-        TranslateTransition translate_object1 = translate_an_object(this.getGobj(), 0,1 , 10);
+        TranslateTransition translate_object1 = translate_an_object(group_hero, 0,1 , 10);
+        this.setY_Coordinate(this.getY_Coordinate() - 1);
         translate_object1.setOnFinished(e -> {
             try {
                 move_hero_under_gravity(content, islandsArrayList, ff1, ff2, group_game, group_hero, exit, coin_count, orcArrayList, treasureChestArrayList,boss);
@@ -186,6 +189,7 @@ public class Player extends GameObject{
                 boss.move_();
             }
             TranslateTransition translate_object1 = translate_an_object(group_game, -1,0 , 5);
+            this.setX_Coordinate(this.getX_Coordinate() + 1);
             translate_object1.setOnFinished(e -> move_hero_small(number - 1, coin_count, orcArrayList, treasureChestArrayList, group_game, group_hero,boss));
             translate_object1.play();
         }
@@ -209,6 +213,7 @@ public class Player extends GameObject{
             translate_object.play();
 
             TranslateTransition translate_object1 = translate_an_object(group_game, -1,0 , 5);
+            this.setX_Coordinate(this.getX_Coordinate() + 1);
             translate_object1.setOnFinished(e -> move_hero_small(100, coin_count, orcArrayList, treasureChestArrayList, group_game, group_hero,boss));
             translate_object1.play();
 

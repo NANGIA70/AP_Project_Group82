@@ -6,18 +6,17 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 public abstract class GameObject implements Movable, Collision{
-    protected float x_Coordinate;
-    protected float y_Coordinate;
+    protected double x_Coordinate;
+    protected double y_Coordinate;
     protected float x_Speed;
     protected float y_Speed;
     protected ImageView Gobj;
 
     public GameObject(/*float x_Coordinate, float y_Coordinate, float x_Speed, float y_Speed, */ImageView gobj) {
         this.Gobj = gobj;
-//        this.x_Coordinate = x_Coordinate;
-//        this.y_Coordinate = y_Coordinate;
-//        this.x_Speed = x_Speed;
-//        this.y_Speed = y_Speed;
+        this.x_Coordinate = gobj.getLayoutX();
+        this.y_Coordinate =  gobj.getLayoutY();
+//
     }
 
     public static TranslateTransition translate_an_object(Node obj, double x_cord, double y_cord, int duration_set) {
@@ -30,11 +29,11 @@ public abstract class GameObject implements Movable, Collision{
         return translate_object;
     }
 
-    public float getX_Coordinate() {
+    public double getX_Coordinate() {
         return x_Coordinate;
     }
 
-    public void setX_Coordinate(float x_Coordinate) {
+    public void setX_Coordinate(double x_Coordinate) {
         this.x_Coordinate = x_Coordinate;
     }
 
@@ -62,11 +61,11 @@ public abstract class GameObject implements Movable, Collision{
         this.x_Speed = x_Speed;
     }
 
-    public float getY_Coordinate() {
+    public double getY_Coordinate() {
         return y_Coordinate;
     }
 
-    public void setY_Coordinate(float y_Coordinate) {
+    public void setY_Coordinate(double y_Coordinate) {
         this.y_Coordinate = y_Coordinate;
     }
 }
