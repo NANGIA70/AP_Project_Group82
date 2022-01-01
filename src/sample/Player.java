@@ -65,7 +65,8 @@ public class Player extends GameObject{
             coin_count.setText(String.valueOf(this.getCoin().getCoinCount()));
         }
 
-        for (Orc orc : orcArrayList) {
+        for (Orc orc : orcArrayList)
+        {
             orc.collision(this, group_game,group_hero);
         }
     }
