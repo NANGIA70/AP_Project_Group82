@@ -243,12 +243,9 @@ public class Player extends GameObject{
 
     public void Revive(AnchorPane content) throws IOException {
         Parent root;
-<<<<<<< HEAD
+
         if (this.getCoin().getCoinCount() < 15 )
         {
-=======
-        if (this.getCoin().getCoinCount() < 15 ) {
->>>>>>> 5dac17dc6f0b62c3252b9606983d5b882107e1e5
             this.getCoin().addCoins(-15);
             root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
         }
