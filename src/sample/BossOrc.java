@@ -39,7 +39,7 @@ public class BossOrc extends Orc {
     public void move_boss_under_gravity(AnchorPane content, ArrayList<Island> islandsArrayList, Group group_game, Group group_hero,Player player,ImageView exit) throws IOException {
 
         TranslateTransition translate_object1 = translate_an_object(this.getGobj(), 0,1 , 10);
-        if(group_hero.localToParent(this.getGobj().getBoundsInParent()).intersects(group_game.localToParent(exit.getBoundsInParent())))
+        if(this.getGobj().getBoundsInParent().intersects(group_game.localToParent(exit.getBoundsInParent())))
         {
             if(player_dead == false)
             {

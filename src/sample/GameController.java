@@ -37,6 +37,26 @@ public class GameController implements Initializable {
 
     private ArrayList<TreasureChest> treasureChestArrayList = new ArrayList<TreasureChest>();
     private ArrayList<Weapon> weaponsList = new ArrayList<Weapon>();
+    private Stage stage;
+    private Scene scene;
+    private static Stage primaryStage;
+    @FXML
+    private ImageView background;
+    @FXML
+    private Group group_menu;
+    @FXML
+    private ImageView reviveBackground;
+    @FXML
+    private ImageView coinReviveImage;
+    @FXML
+    private ImageView reviveButton1;
+    @FXML
+    private ImageView reviveButton2;
+
+    @FXML
+    private javafx.scene.control.Label revive;
+    @FXML
+    private javafx.scene.control.Label noThanks;
     @FXML
     private AnchorPane content;
 
@@ -44,8 +64,6 @@ public class GameController implements Initializable {
     private ImageView heading;
     @FXML
     private ImageView play;
-    @FXML
-    private ImageView background;
     @FXML
     private ImageView island1;
     @FXML
@@ -142,6 +160,8 @@ public class GameController implements Initializable {
     private Group group_game;
     @FXML
     private Group group_hero;
+    @FXML
+    private Group pause_menu2;
 
     @FXML
     private ImageView FallingTile1;
@@ -210,6 +230,7 @@ public class GameController implements Initializable {
     private ImageView powerup1;
     @FXML
     private ImageView powerup2;
+    private int moveforwardcount = 0;
     private FallingFloor ff1;
     private FallingFloor ff2;
     private Helmet helmet;
@@ -219,7 +240,7 @@ public class GameController implements Initializable {
     private Weapon2 weapon2;
     private Player player;
     private BossOrc boss;
-
+    private boolean game_paused = false;
     //    Function to create required translate transition object
     public static TranslateTransition translate_an_object(Node obj, double x_cord, double y_cord, int duration_set) {
         Duration animation_time = Duration.millis(duration_set);
@@ -233,6 +254,11 @@ public class GameController implements Initializable {
     //    Function to start indefinite island movement
 
     public void move_ClickHero() {
+        if(game_paused == true)
+        {
+            System.out.println("dhdhdhdh");
+            return;
+        }
         player.move_ClickHero(distance, coin_count, orcArrayList, treasureChestArrayList, group_game, group_hero, weapon,boss,content,coinArrayList,powerupArrayList);
     }
     public void switch_to_weapon1()
@@ -277,14 +303,101 @@ public class GameController implements Initializable {
         treasureChestArrayList.get(0).move();
     }
 
-    public void pause_menu(javafx.scene.input.MouseEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Setting.fxml"));
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root,1200, 645);
+    public void pause_menu(javafx.scene.input.MouseEvent event) throws IOException
+    {
+        if(game_paused == false) {
+            TranslateTransition translate_object = translate_an_object(pause_menu2, 0, -600, 10);
+            translate_object.play();
+            game_paused = true;
+        }
+    }
+    public void reviveAction()
+    {
+        TranslateTransition translate_object = translate_an_object(group_menu, 0, 600, 10);
+        translate_object.play();
+        TranslateTransition translate_object2 = translate_an_object(group_hero, 0, -350, 10);
+        translate_object2.setOnFinished(e -> check_for_island());
+        translate_object2.play();
+        game_paused = false;
+    }
+    public void check_for_island()
+    {
+        if(check_island_collision())
+        {
+            for(int i = 0;i<moveforwardcount;i++)
+            {
+                player.increaseScore();
+            }
+            distance.setText(String.valueOf(player.getScore()));
+            return;
+        }
+        TranslateTransition translate_object2 = translate_an_object(group_game, -100, 0, 10);
+        moveforwardcount+=1;
+        translate_object2.setOnFinished(e -> check_for_island());
+        translate_object2.play();
+    }
+    public boolean check_island_collision()
+    {
+        for (Island island : islandsArrayList) {
+            if (island.collision(player,group_game,group_hero))
+            {
+                player.set_player_dead();
+                player.set_player_to_be_revived();
+                player.moveHero(content, islandsArrayList, ff1, ff2, group_game, group_hero, exit, coin_count,  orcArrayList,  treasureChestArrayList,boss,coinArrayList,powerupArrayList);
+                return true;
+            }
+        }
+        for (ImageView fallTile : ff1.getFalling_tiles()) {
+            if(group_hero.localToParent(player.getGobj().getBoundsInParent()).intersects(group_game.localToParent(fallTile.getBoundsInParent())))
+            {
+                player.set_player_dead();
+                player.set_player_to_be_revived();
+                player.moveHero(content, islandsArrayList, ff1, ff2, group_game, group_hero, exit, coin_count,  orcArrayList,  treasureChestArrayList,boss,coinArrayList,powerupArrayList);
+                return true;
+            }
+        }
+        for (ImageView fallTile : ff2.getFalling_tiles()) {
+            if(group_hero.localToParent(player.getGobj().getBoundsInParent()).intersects(group_game.localToParent(fallTile.getBoundsInParent())))
+            {
+                player.set_player_dead();
+                player.set_player_to_be_revived();
+                player.moveHero(content, islandsArrayList, ff1, ff2, group_game, group_hero, exit, coin_count,  orcArrayList,  treasureChestArrayList,boss,coinArrayList,powerupArrayList);
+                return true;
+            }
+        }
+        return false;
+    }
+    public void get_revive_page()
+    {
+        TranslateTransition translate_object = translate_an_object(group_menu, 0, -600, 10);
+        translate_object.play();
+        game_paused = true;
+    }
+    public void resume_action(javafx.scene.input.MouseEvent event) throws IOException
+    {
+        TranslateTransition translate_object = translate_an_object(pause_menu2, 0, 600, 10);
+        translate_object.play();
+        game_paused = false;
+    }
+    public void load_home_page() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
+        content.getChildren().setAll(root);
+    }
+    public void quit_action(javafx.scene.input.MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root, 1200, 645);
         stage.setScene(scene);
         stage.show();
     }
-
+    public void noAction(javafx.scene.input.MouseEvent event) throws IOException
+    {
+        Parent root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root, 1200, 645);
+        stage.setScene(scene);
+        stage.show();
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ff1 = new FallingFloor(FallingTile1);
@@ -293,7 +406,7 @@ public class GameController implements Initializable {
 
         coin = new Coin(0, coinImage);
 
-        player = new Player(100, 100, helmet, coin, hero,coin_count);
+        player = new Player(100, 100, helmet, coin, hero,coin_count,this);
 
         islandsArrayList.add(new Static_Island(island1));
         islandsArrayList.add(new Static_Island(island2));
@@ -365,11 +478,11 @@ public class GameController implements Initializable {
 
 //        Chests
         treasureChestArrayList.add(new CoinChest(chest));
-        treasureChestArrayList.add(new WeaponChest(chest2,weapon1,weapon_level_label1,weapon_level_label2));
+        treasureChestArrayList.add(new WeaponChest(chest2,weapon1,weapon_level_label1,weapon_level_label2,0));
         treasureChestArrayList.add(new CoinChest(chest3));
-        treasureChestArrayList.add(new WeaponChest(chest4,weapon2,weapon_level_label1,weapon_level_label2));
+        treasureChestArrayList.add(new WeaponChest(chest4,weapon2,weapon_level_label1,weapon_level_label2,1));
         treasureChestArrayList.add(new CoinChest(chest5));
-        treasureChestArrayList.add(new WeaponChest(chest6,weapon1,weapon_level_label1,weapon_level_label2));
+        treasureChestArrayList.add(new WeaponChest(chest6,weapon1,weapon_level_label1,weapon_level_label2,1));
         FadeTransition fade_obj = new FadeTransition();
         fade_obj.setDuration(Duration.millis(1));
         fade_obj.setToValue(0);

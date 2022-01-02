@@ -25,11 +25,15 @@ public class Player extends GameObject{
     private boolean has_reached_boss = false;
     private boolean has_weapon1 = false;
     private boolean has_weapon2 = false;
+    private GameController  controller;
     private int xmultiplier = 1;
     private int ymultiplier = 1;
     private int tracker_for_powerup_duration = 0;
     private boolean x_power_up_in_use = false;
     private boolean player_dead = false;
+    private TranslateTransition translate_object_player;
+    private boolean player_to_be_revived = false;
+    private boolean player_can_be_moved = true;
     public boolean get_has_weapon1()
     {
         return has_weapon1;
@@ -46,12 +50,13 @@ public class Player extends GameObject{
     {
         has_weapon2 = true;
     }
-    public Player(int jumpHeight, int jumpDistance, Helmet helmet, Coin coin ,ImageView hero,Label coin_count_2) {
+    public Player(int jumpHeight, int jumpDistance, Helmet helmet, Coin coin ,ImageView hero,Label coin_count_2,GameController contoller) {
         super(hero);
         this.jumpHeight = jumpHeight;
         this.jumpDistance = jumpDistance;
         this.helmet = helmet;
         this.coin = coin;
+        this.controller = contoller;
         this.coin_count_2 = coin_count_2;
     }
 
@@ -105,7 +110,9 @@ public class Player extends GameObject{
 //    Collision Functions Start
     public boolean check_island_collision(ArrayList<Island> islands, Group group_game, Group group_hero) {
         for (Island island : islands) {
-            if (island.collision(this, group_game,group_hero)) {
+            if (island.collision(this, group_game,group_hero))
+            {
+                player_to_be_revived = false;
                 return true;
             }
         }
@@ -118,7 +125,9 @@ public class Player extends GameObject{
     }
     public boolean check_falling_floor_collision(FallingFloor ff1, Group group_game, Group group_hero) {
         for (ImageView fallTile : ff1.getFalling_tiles()) {
-            if(group_hero.localToParent(this.getGobj().getBoundsInParent()).intersects(group_game.localToParent(fallTile.getBoundsInParent()))) {
+            if(group_hero.localToParent(this.getGobj().getBoundsInParent()).intersects(group_game.localToParent(fallTile.getBoundsInParent())))
+            {
+                player_to_be_revived = false;
                 return true;
             }
         }
@@ -144,21 +153,37 @@ public class Player extends GameObject{
         return false;
     }
     public void moveHero(AnchorPane content, ArrayList<Island> islandsArrayList, FallingFloor ff1, FallingFloor ff2, Group group_game, Group group_hero, ImageView exit,Label coin_count, ArrayList<Orc> orcArrayList, ArrayList<TreasureChest> treasureChestArrayList,BossOrc boss,ArrayList<Coin> coinArrayList,ArrayList<Powerup> powerupArrayList) {
+        if(player_to_be_revived == true)
+        {
+            return;
+        }
         final Timeline timeline = new Timeline();
         TranslateTransition translate_object = translate_an_object(group_hero, 0, -100 * ymultiplier, 1000);
+        translate_object_player = translate_object;
         this.setY_Coordinate(this.getY_Coordinate() + 100);
         translate_object.setOnFinished(e -> hero_fall_down(content, islandsArrayList, ff1, ff2, group_game, group_hero, exit, coin_count,  orcArrayList,  treasureChestArrayList,boss,coinArrayList,powerupArrayList));
         translate_object.play();
     }
 
     public void move_hero_under_gravity(AnchorPane content, ArrayList<Island> islandsArrayList, FallingFloor ff1, FallingFloor ff2, Group group_game, Group group_hero, ImageView exit,Label coin_count, ArrayList<Orc> orcArrayList, ArrayList<TreasureChest> treasureChestArrayList,BossOrc boss,ArrayList<Coin> coinArrayList,ArrayList<Powerup> powerupArrayList) throws IOException {
+        if(player_to_be_revived == true)
+        {
+            return;
+        }
         TranslateTransition translate_object1 = translate_an_object(group_hero, 0,1 * ymultiplier , 10);
         this.setY_Coordinate(this.getY_Coordinate() - 1);
         check_collision(coin_count, orcArrayList, treasureChestArrayList, group_game, group_hero,coinArrayList,powerupArrayList);
-        if(group_hero.localToParent(this.getGobj().getBoundsInParent()).intersects(group_game.localToParent(exit.getBoundsInParent()))) {
-            player_dead = true;
-            boss.player_dead();
-            this.Revive(content);
+        if(group_hero.localToParent(this.getGobj().getBoundsInParent()).intersects(group_game.localToParent(exit.getBoundsInParent())))
+        {
+            if(player_dead == false)
+            {
+                player_can_be_moved = false;
+                player_to_be_revived = true;
+                player_dead = true;
+                boss.player_dead();
+                //translate_object_player.stop();
+                this.Revive();
+            }
         }
         if(check_for_boss_islands(islandsArrayList,group_game,group_hero) && !has_reached_boss)
         {
@@ -190,6 +215,10 @@ public class Player extends GameObject{
     }
 
     private void hero_fall_down(AnchorPane content, ArrayList<Island> islandsArrayList, FallingFloor ff1, FallingFloor ff2, Group group_game, Group group_hero, ImageView exit,Label coin_count, ArrayList<Orc> orcArrayList, ArrayList<TreasureChest> treasureChestArrayList,BossOrc boss,ArrayList<Coin> coinArrayList,ArrayList<Powerup> powerupArrayList) {
+        if(player_to_be_revived == true)
+        {
+            return;
+        }
         TranslateTransition translate_object1 = translate_an_object(group_hero, 0,1 * ymultiplier , 10);
         this.setY_Coordinate(this.getY_Coordinate() - 1);
         translate_object1.setOnFinished(e -> {
@@ -204,6 +233,10 @@ public class Player extends GameObject{
 //
     //    Function to move hero on mouse click
     public void move_hero_small(int number, Label coin_count, ArrayList<Orc> orcArrayList, ArrayList<TreasureChest> treasureChestArrayList, Group group_game, Group group_hero,BossOrc boss,ArrayList<Coin> coinArrayList,ArrayList<Powerup> powerupArrayList) {
+        if(player_to_be_revived == true)
+        {
+            return;
+        }
         if(number < 1) {
             move_click_hero_in_use = false;
             return;
@@ -225,6 +258,10 @@ public class Player extends GameObject{
         return boss.check_collision_with_player(this,group_game,group_hero);
     }
     public void move_ClickHero(Label distance, Label coin_count, ArrayList<Orc> orcArrayList, ArrayList<TreasureChest> treasureChestArrayList, Group group_game, Group group_hero, ImageView weapon, BossOrc boss,AnchorPane content,ArrayList<Coin> coinArrayList,ArrayList<Powerup> powerupArrayList) {
+        if(player_to_be_revived == true)
+        {
+            return;
+        }
         if(!move_click_hero_in_use) {
 //            Update distance
             if(tracker_for_powerup_duration %10 == 0)
@@ -278,19 +315,17 @@ public class Player extends GameObject{
         coin.addCoins(coinNum);
     }
 
-    public void Revive(AnchorPane content) throws IOException {
-        Parent root;
-
-        if (this.getCoin().getCoinCount() < 15 )
+    public void Revive() throws IOException {
+        if (this.getCoin().getCoinCount() < 15 || revive)
         {
-            this.getCoin().addCoins(-15);
-            root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
+            controller.load_home_page();
         }
-        else {
+        else
+        {
             revive = true;
-            root = FXMLLoader.load(getClass().getResource("RevivePage.fxml"));
+            controller.get_revive_page();
+            this.getCoin().addCoins(-15);
         }
-        content.getChildren().setAll(root);
     }
 
     //    Getters and Setters
@@ -340,6 +375,10 @@ public class Player extends GameObject{
 
 //    Weapon functions
     public void move_weapon_forward(int number, Group group_hero, ImageView weapon, ArrayList<Orc> orcArrayList,Group group_game,Label coin_count,BossOrc boss,AnchorPane content) {
+        if(player_to_be_revived == true)
+        {
+            return;
+        }
         int check = 1;
         for (Orc orc : orcArrayList)
         {
@@ -380,6 +419,10 @@ public class Player extends GameObject{
         }
     }
     public void move_weapon_backward(Group group_hero, ImageView weapon) {
+        if(player_to_be_revived == true)
+        {
+            return;
+        }
         if(group_hero.localToParent(this.getGobj().getBoundsInParent()).intersects(group_hero.localToParent(weapon.getBoundsInParent())))
         {
             return;
@@ -401,4 +444,17 @@ public class Player extends GameObject{
     {
         this.hasweapon = true;
     }
+    public void set_player_dead()
+    {
+        player_dead = false;
+    }
+    public void set_player_to_be_revived()
+    {
+        player_to_be_revived = false;
+    }
+    public void set_player_can_be_moved()
+    {
+        player_can_be_moved = true;
+    }
+
 }

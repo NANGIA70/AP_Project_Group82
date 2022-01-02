@@ -85,7 +85,7 @@
                         <Image url="@../assets/assets/Islands3.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="exit" fitHeight="20.0" fitWidth="20000.0" layoutX="315.0" layoutY="650.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="false" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
+                <ImageView fx:id="exit" fitHeight="20.0" fitWidth="20000.0" layoutX="315.0" layoutY="720.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="false" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
                     <image>
                         <Image url="@../Images/Background.jpeg" />
                     </image>
@@ -358,6 +358,64 @@
                 <ImageView fx:id="island33" fitHeight="150.0" fitWidth="200.0" layoutX="12696.0" layoutY="388.0" onMousePressed="#move_ClickHero" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="-4.5">
                     <image>
                         <Image url="@../assets/assets/Islands1.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </Group>
+        <Group fx:id="group_menu" layoutX="544.0" layoutY="709.0" scaleX="1.25" scaleY="1.25" scaleZ="1.25">
+            <children>
+                <ImageView fx:id="reviveBackground" fitHeight="418.0" fitWidth="464.0" layoutX="-168.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
+                    <image>
+                        <Image url="@../assets/assets/ReviveBackground.jpg" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="reviveButton1" fitHeight="73.0" fitWidth="200.0" layoutX="-36.0" layoutY="204.0" onMouseClicked="#reviveAction" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
+                    <image>
+                        <Image url="@../assets/assets/ReviveButton.jpg" />
+                    </image>
+                </ImageView>
+                <Label fx:id="revive" layoutX="5.0" layoutY="208.0" onMouseClicked="#reviveAction" text="15" textFill="WHITE">
+                    <font>
+                        <Font name="Palatino Linotype" size="46.0" />
+                    </font>
+                </Label>
+                <ImageView fx:id="coinReviveImage" fitHeight="45.0" fitWidth="38.0" layoutX="67.0" layoutY="216.0" onMouseClicked="#reviveAction" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../assets/assets/Coin.png" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="reviveButton2" fitHeight="150.0" fitWidth="200.0" layoutX="-39.0" layoutY="300.0" onMouseClicked="#noAction" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../assets/assets/ReviveButton.jpg" />
+                    </image>
+                </ImageView>
+                <Label fx:id="noThanks" layoutX="2.0" layoutY="313.0" onMouseClicked="#noAction" text="No Thanks" textFill="WHITE">
+                    <font>
+                        <Font name="Palatino Linotype" size="24.0" />
+                    </font>
+                </Label>
+            </children>
+        </Group>
+        <Group fx:id="pause_menu2" layoutX="544.0" layoutY="709.0" scaleX="1.25" scaleY="1.25" scaleZ="1.25">
+            <children>
+                <ImageView fx:id="Menu_background" fitHeight="372.0" fitWidth="261.0" layoutX="-66.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../assets/assets/Menu_background.jpg" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="resume" fitHeight="150.0" fitWidth="200.0" layoutX="-36.0" layoutY="56.0" onMouseClicked="#resume_action" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../assets/assets/Resume.jpg" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="save" fitHeight="150.0" fitWidth="200.0" layoutX="-37.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../assets/assets/Save.jpg" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="quit" fitHeight="73.0" fitWidth="200.0" layoutX="-36.0" layoutY="244.0" onMouseClicked="#quit_action" onMousePressed="#quit_action" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../assets/assets/Quit.jpg" />
                     </image>
                 </ImageView>
             </children>

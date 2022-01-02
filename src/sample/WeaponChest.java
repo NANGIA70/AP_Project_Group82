@@ -16,13 +16,14 @@ public class WeaponChest extends TreasureChest {
     private Label weapon1_label;
     private Label weapon2_label;
     private boolean chestOpen = false;
-    public static int first_time = 0;
-    public WeaponChest(ImageView chest, Weapon chestWeapon, Label weapon1_label,Label weapon2_label)
+    public int first_time;
+    public WeaponChest(ImageView chest, Weapon chestWeapon, Label weapon1_label,Label weapon2_label,int first_time)
     {
         super(chest);
         this.chestWeapon = chestWeapon;
         this.weapon1_label = weapon1_label;
         this.weapon2_label = weapon2_label;
+        this.first_time = first_time;
     }
 
     @Override
