@@ -18,7 +18,7 @@ public class Player extends GameObject{
     private Helmet helmet;
     private Coin coin;
     private int score = 0;
-    private Label coin_count_2;
+    private transient Label coin_count_2;
     private boolean move_click_hero_in_use = false;
     private boolean hasweapon = false;
     private boolean revive = false;
@@ -41,7 +41,16 @@ public class Player extends GameObject{
     {
         has_weapon2 = true;
     }
-    public Player(int jumpHeight, int jumpDistance, Helmet helmet, Coin coin ,ImageView hero,Label coin_count_2) {
+
+    public Label getCoin_count_2() {
+        return coin_count_2;
+    }
+
+    public void setCoin_count_2(Label coin_count_2) {
+        this.coin_count_2 = coin_count_2;
+    }
+
+    public Player(int jumpHeight, int jumpDistance, Helmet helmet, Coin coin , ImageView hero, Label coin_count_2) {
         super(hero);
         this.jumpHeight = jumpHeight;
         this.jumpDistance = jumpDistance;
@@ -86,9 +95,9 @@ public class Player extends GameObject{
         return false;
     }
 
-    public void setWeaponsList(ArrayList<Weapon> weaponsList,int weapon_number)
+    public void setWeaponsList(ArrayList<Weapon> weaponsList, int weapon_number)
     {
-        helmet.setWeaponsList(weaponsList,weapon_number);
+        helmet.setWeaponsList(weaponsList, weapon_number);
     }
 
 
@@ -184,7 +193,7 @@ public class Player extends GameObject{
         }
         else {
             check_collision(coin_count, orcArrayList, treasureChestArrayList, group_game, group_hero);
-            if(check_collision_with_boss(boss,group_game,group_hero) == true)
+            if(check_collision_with_boss(boss, group_game, group_hero))
             {
                 boss.move_();
             }
@@ -218,7 +227,7 @@ public class Player extends GameObject{
             translate_object1.play();
 
             check_collision(coin_count, orcArrayList, treasureChestArrayList, group_game, group_hero);
-            if(check_collision_with_boss(boss,group_hero,group_hero) == true ) {
+            if(check_collision_with_boss(boss, group_hero, group_hero)) {
                 boss.move_();
             }
         }

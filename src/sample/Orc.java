@@ -17,7 +17,7 @@ public abstract class Orc extends GameObject{
     private boolean orc_dead = false;
     private boolean collision_taking_place = false;
     //private  TranslateTransition orc_translate_object ;
-    public Orc(ImageView orc,int healthpoints)
+    public Orc(ImageView orc, int healthpoints)
     {
         super(orc);
         this.healthpoints = healthpoints;
@@ -28,7 +28,7 @@ public abstract class Orc extends GameObject{
 
         if(group_hero.localToParent(obj.getGobj().getBoundsInParent()).intersects(group_game.localToParent(this.getGobj().getBoundsInParent())))
         {
-            if(collision_taking_place == false)
+            if(!collision_taking_place)
             {
                 collision_taking_place = true;
                 TranslateTransition translate_object = translate_an_object(this.getGobj(), 250, 0, 200);
