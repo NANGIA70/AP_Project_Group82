@@ -667,6 +667,7 @@ public class GameController implements Initializable {
                 boss = game_obj.getBoss();
                 boss.setGobj(boss_orc);
                 boss.setHealth(game_obj.getBoss().getHealth());
+                boss.setController(this);
 
                 ff1 = game_obj.getFf1();
                 ff1.setFalling_tiles(new ArrayList<ImageView>(5));
@@ -679,11 +680,11 @@ public class GameController implements Initializable {
 
                 ff2 = game_obj.getFf2();
                 ff2.setFalling_tiles(new ArrayList<ImageView>(5));
-                ff1.getFalling_tiles().add(FallingTile6);
-                ff1.getFalling_tiles().add(FallingTile7);
-                ff1.getFalling_tiles().add(FallingTile8);
-                ff1.getFalling_tiles().add(FallingTile9);
-                ff1.getFalling_tiles().add(FallingTile10);
+                ff2.getFalling_tiles().add(FallingTile6);
+                ff2.getFalling_tiles().add(FallingTile7);
+                ff2.getFalling_tiles().add(FallingTile8);
+                ff2.getFalling_tiles().add(FallingTile9);
+                ff2.getFalling_tiles().add(FallingTile10);
                 ff2.set_fall_floor_boolean();
 
                 if(ff1.getNumber_of_tiles_fallen() == 1)

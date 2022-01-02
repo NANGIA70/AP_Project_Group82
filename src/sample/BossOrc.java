@@ -18,6 +18,11 @@ public class BossOrc extends Orc {
     private boolean check_if_boss_hit = false;
     private boolean boss_dead = false;
     private boolean player_dead = false;
+
+    public void setController(GameController controller) {
+        this.controller = controller;
+    }
+
     private transient GameController controller;
     public BossOrc(ImageView orc,int healthpoints,GameController controller)
     {

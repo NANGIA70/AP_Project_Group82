@@ -31,7 +31,6 @@ public class FallingFloor extends GameObject{
             return;
         }
         number_of_tiles_fallen+=1;
-        fall_tile_which_tile_should_fall +=1;
         TranslateTransition translate_object1 = translate_an_object(falling_tiles.get(number), 0,500 , 2500);
         translate_object1.setOnFinished(e -> fallStart(number + 1));
         translate_object1.play();
