@@ -6,6 +6,17 @@ import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 
 public abstract class TreasureChest extends GameObject{
+
+    protected boolean chestOpen = false;
+
+    public boolean isChestOpen() {
+        return chestOpen;
+    }
+
+    public void setChestOpen(boolean chestOpen) {
+        this.chestOpen = chestOpen;
+    }
+
     public TreasureChest(ImageView chest) {
         super(chest);
     }

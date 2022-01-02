@@ -41,6 +41,7 @@ public abstract class Orc extends GameObject{
         }
         return false;
     }
+
     public void set_orc_collision()
     {
         collision_taking_place = false;
@@ -48,6 +49,15 @@ public abstract class Orc extends GameObject{
     public boolean collision_weapon(GameObject obj, Group group_game, Group group_hero) {
         return group_hero.localToParent(obj.getGobj().getBoundsInParent()).intersects(group_game.localToParent(this.getGobj().getBoundsInParent()));
     }
+
+    public boolean isOrc_dead() {
+        return orc_dead;
+    }
+
+    public void setOrc_dead(boolean orc_dead) {
+        this.orc_dead = orc_dead;
+    }
+
     public void move_orc_down() {
         TranslateTransition translate_object = translate_an_object(this.getGobj(), 0, 1000, 2000);
         this.setY_Coordinate(this.getY_Coordinate() + 1000);

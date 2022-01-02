@@ -13,6 +13,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Player extends GameObject{
+    public double getGroup_X() {
+        return group_X;
+    }
+
+    public void setGroup_X(double group_X) {
+        this.group_X = group_X;
+    }
+
+    public double getGroup_Y() {
+        return group_Y;
+    }
+
+    public void setGroup_Y(double group_Y) {
+        this.group_Y = group_Y;
+    }
+
+    private double group_X;
+    private double group_Y;
+
     private int jumpHeight;
     private int jumpDistance;
     private Helmet helmet;
@@ -52,6 +71,8 @@ public class Player extends GameObject{
 
     public Player(int jumpHeight, int jumpDistance, Helmet helmet, Coin coin , ImageView hero, Label coin_count_2) {
         super(hero);
+        this.group_X = 0;
+        this.group_Y = 0;
         this.jumpHeight = jumpHeight;
         this.jumpDistance = jumpDistance;
         this.helmet = helmet;
@@ -199,6 +220,7 @@ public class Player extends GameObject{
             }
             TranslateTransition translate_object1 = translate_an_object(group_game, -1,0 , 5);
             this.setX_Coordinate(this.getX_Coordinate() + 1);
+            group_X--;
             translate_object1.setOnFinished(e -> move_hero_small(number - 1, coin_count, orcArrayList, treasureChestArrayList, group_game, group_hero,boss));
             translate_object1.play();
         }
@@ -223,6 +245,7 @@ public class Player extends GameObject{
 
             TranslateTransition translate_object1 = translate_an_object(group_game, -1,0 , 5);
             this.setX_Coordinate(this.getX_Coordinate() + 1);
+            group_X--;
             translate_object1.setOnFinished(e -> move_hero_small(100, coin_count, orcArrayList, treasureChestArrayList, group_game, group_hero,boss));
             translate_object1.play();
 

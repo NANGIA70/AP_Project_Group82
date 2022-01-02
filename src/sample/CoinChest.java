@@ -9,7 +9,6 @@ import java.util.Random;
 
 public class CoinChest extends TreasureChest{
     private Coin chestCoin;
-    private boolean chestOpen = false;
 
     public CoinChest(ImageView chest) {
         super(chest);

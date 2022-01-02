@@ -15,6 +15,9 @@ public abstract class Island extends GameObject{
     }
     public boolean check_orc_collision(GameObject obj,Group group_game)
     {
+//        System.out.println(this);
+//        System.out.println(this.getGobj());
+//        System.out.println("====================");
         return group_game.localToParent(obj.getGobj().getBoundsInParent()).intersects(group_game.localToParent(this.getGobj().getBoundsInParent()));
     }
 }

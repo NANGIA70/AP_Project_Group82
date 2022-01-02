@@ -13,8 +13,9 @@ import java.util.Random;
 public class WeaponChest extends TreasureChest {
     private Weapon chestWeapon;
     private boolean chestOpen = false;
-    public static int first_time = 0;
-    public WeaponChest(ImageView chest,Weapon chestWeapon) {
+    public int first_time = 0;
+
+    public WeaponChest(ImageView chest, Weapon chestWeapon) {
 
         super(chest);
         this.chestWeapon = chestWeapon;

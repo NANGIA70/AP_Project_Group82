@@ -30,11 +30,14 @@ public class GameController implements Initializable, Serializable {
 
     private ArrayList<Island> islandsArrayList = new ArrayList<Island>();
 
+    private double group_X;
+    private double group_Y;
+
     private ArrayList<Orc> orcArrayList = new ArrayList<Orc>();
 
     private ArrayList<TreasureChest> treasureChestArrayList = new ArrayList<TreasureChest>();
     private ArrayList<Weapon> weaponsList = new ArrayList<Weapon>();
-    private boolean start = true;
+    private static boolean start = true;
     @FXML
     private transient AnchorPane content;
 
@@ -204,7 +207,7 @@ public class GameController implements Initializable, Serializable {
     private Player player;
     private BossOrc boss;
 
-    private Game game_obj = new Game(ff1, ff2, helmet, islandsArrayList, orcArrayList, treasureChestArrayList, weaponsList, content, coin, weapon1, weapon2, player, boss);
+    private Game game_obj;
 
     //    Function to create required translate transition object
     public static TranslateTransition translate_an_object(Node obj, double x_cord, double y_cord, int duration_set) {
@@ -222,19 +225,15 @@ public class GameController implements Initializable, Serializable {
         player.move_ClickHero(distance, coin_count, orcArrayList, treasureChestArrayList, group_game, group_hero, weapon,boss,content);
     }
 
-    public void switch_to_weapon1()
-    {
-        if(player.get_has_weapon1())
-        {
+    public void switch_to_weapon1() {
+        if(player.get_has_weapon1()) {
             File file = new File("src/sample/WeaponAxe.png");
             weapon.setImage(new Image(file.toURI().toString()));
             player.getHelmet().equipWeapon(0);
         }
     }
-    public void switch_to_weapon2()
-    {
-        if(player.get_has_weapon2())
-        {
+    public void switch_to_weapon2() {
+        if(player.get_has_weapon2()) {
             File file = new File("src/sample/WeaponShuriken.png");
             weapon.setImage(new Image(file.toURI().toString()));
             player.getHelmet().equipWeapon(1);
@@ -265,7 +264,12 @@ public class GameController implements Initializable, Serializable {
     }
 
     public void pause_menu(javafx.scene.input.MouseEvent event) throws IOException {
-        game_obj.serialize();
+        group_X = player.getGroup_X();
+        group_Y = player.getGroup_Y();
+        game_obj = new Game(group_X, group_Y, ff1, ff2, helmet, islandsArrayList, orcArrayList, treasureChestArrayList, weaponsList, content, coin, weapon1, weapon2, player, boss);
+
+        Game.serialize(game_obj);
+
         Parent root = FXMLLoader.load(getClass().getResource("Setting.fxml"));
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root,1200, 645);
@@ -355,28 +359,62 @@ public class GameController implements Initializable, Serializable {
             treasureChestArrayList.add(new WeaponChest(chest4,weapon2));
             treasureChestArrayList.add(new CoinChest(chest5));
             treasureChestArrayList.add(new WeaponChest(chest6,weapon1));
+//            game_obj = new Game(ff1, ff2, helmet, islandsArrayList, orcArrayList, treasureChestArrayList, weaponsList, content, coin, weapon1, weapon2, player, boss);
+
             start = false;
         }
         else {
             try {
-                game_obj = game_obj.deserialize();
+                game_obj = Game.deserialize();
+//                System.out.println(game_obj);
+                helmet = game_obj.getHelmet();
 
-                helmet = Game.getHelmet();
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(0));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(1));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(2));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(3));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(4));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(5));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(6));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(7));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(8));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(9));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(10));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(11));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(12));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(13));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(14));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(15));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(16));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(17));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(18));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(19));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(20));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(21));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(22));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(23));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(24));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(25));
+                islandsArrayList.add(game_obj.getIslandsArrayList().get(26));
 
+//                islandsArrayList = game_obj.getIslandsArrayList();
+////                System.out.println("Hello");
                 islandsArrayList.get(0).setGobj(island1);
+                System.out.println(islandsArrayList.get(0).getGobj());
                 islandsArrayList.get(1).setGobj(island2);
-                islandsArrayList.get(3).setGobj(island3);
-                islandsArrayList.get(4).setGobj(island4);
-                islandsArrayList.get(5).setGobj(island8);
-                islandsArrayList.get(6).setGobj(island9);
-                islandsArrayList.get(7).setGobj(island10);
-                islandsArrayList.get(8).setGobj(island11);
-                islandsArrayList.get(9).setGobj(island12);
-                islandsArrayList.get(10).setGobj(island13);
-                islandsArrayList.get(11).setGobj(island14);
-                islandsArrayList.get(12).setGobj(island15);
-                islandsArrayList.get(13).setGobj(island16);
-                islandsArrayList.get(14).setGobj(island17);
+                islandsArrayList.get(2).setGobj(island3);
+                islandsArrayList.get(3).setGobj(island4);
+                islandsArrayList.get(4).setGobj(island8);
+                islandsArrayList.get(5).setGobj(island9);
+                islandsArrayList.get(6).setGobj(island10);
+                islandsArrayList.get(7).setGobj(island11);
+                islandsArrayList.get(8).setGobj(island12);
+                islandsArrayList.get(9).setGobj(island13);
+                islandsArrayList.get(10).setGobj(island14);
+                islandsArrayList.get(11).setGobj(island15);
+                islandsArrayList.get(12).setGobj(island16);
+                islandsArrayList.get(13).setGobj(island17);
+                islandsArrayList.get(14).setGobj(island18);
                 islandsArrayList.get(15).setGobj(island22);
                 islandsArrayList.get(16).setGobj(island23);
                 islandsArrayList.get(17).setGobj(island24);
@@ -390,64 +428,102 @@ public class GameController implements Initializable, Serializable {
                 islandsArrayList.get(25).setGobj(island32);
                 islandsArrayList.get(26).setGobj(island33);
 
+                orcArrayList = game_obj.getOrcArrayList();
                 orcArrayList.get(0).setGobj(red_orc1);
-                orcArrayList.get(0).setHealth(Game.getOrcArrayList().get(0).getHealth());
+//                orcArrayList.get(0).setHealth(game_obj.getOrcArrayList().get(0).getHealth());
                 orcArrayList.get(1).setGobj(red_orc2);
-                orcArrayList.get(1).setHealth(Game.getOrcArrayList().get(1).getHealth());
+//                orcArrayList.get(1).setHealth(game_obj.getOrcArrayList().get(1).getHealth());
                 orcArrayList.get(2).setGobj(red_orc3);
-                orcArrayList.get(2).setHealth(Game.getOrcArrayList().get(2).getHealth());
+//                orcArrayList.get(2).setHealth(game_obj.getOrcArrayList().get(2).getHealth());
 
                 orcArrayList.get(3).setGobj(green_orc);
-                orcArrayList.get(3).setHealth(Game.getOrcArrayList().get(3).getHealth());
+//                orcArrayList.get(3).setHealth(game_obj.getOrcArrayList().get(3).getHealth());
                 orcArrayList.get(4).setGobj(green_orc3);
-                orcArrayList.get(4).setHealth(Game.getOrcArrayList().get(4).getHealth());
+//                orcArrayList.get(4).setHealth(game_obj.getOrcArrayList().get(4).getHealth());
                 orcArrayList.get(5).setGobj(green_orc2);
-                orcArrayList.get(5).setHealth(Game.getOrcArrayList().get(5).getHealth());
+//                orcArrayList.get(5).setHealth(game_obj.getOrcArrayList().get(5).getHealth());
 
+                for (Orc value : orcArrayList) {
+                    if (value.isOrc_dead()) {
+                        TranslateTransition translate_object1 = translate_an_object(value.getGobj(), 0, 1000, 5);
+                        translate_object1.play();
+                    }
+                }
+
+                treasureChestArrayList = game_obj.getTreasureChestArrayList();
+                treasureChestArrayList.get(0).setGobj(chest);
+                treasureChestArrayList.get(1).setGobj(chest2);
+                treasureChestArrayList.get(2).setGobj(chest3);
+                treasureChestArrayList.get(3).setGobj(chest4);
+                treasureChestArrayList.get(4).setGobj(chest5);
+                treasureChestArrayList.get(5).setGobj(chest6);
+
+                for (TreasureChest treasureChest : treasureChestArrayList) {
+                    File file = new File("src/sample/ChestOpen.png");
+                    treasureChest.getGobj().setImage(new Image(file.toURI().toString()));
+                }
+
+                boss = game_obj.getBoss();
                 boss.setGobj(boss_orc);
-                boss.setHealth(Game.getBoss().getHealth());
+                boss.setHealth(game_obj.getBoss().getHealth());
 
+                ff1 = game_obj.getFf1();
+                ff1.setFalling_tiles(new ArrayList<ImageView>(5));
+                ff1.getFalling_tiles().add(FallingTile1);
+                ff1.getFalling_tiles().add(FallingTile2);
+                ff1.getFalling_tiles().add(FallingTile3);
+                ff1.getFalling_tiles().add(FallingTile4);
+                ff1.getFalling_tiles().add(FallingTile5);
 
-                ff1.getFalling_tiles().set(0, FallingTile1);
-                ff1.getFalling_tiles().set(1, FallingTile2);
-                ff1.getFalling_tiles().set(2, FallingTile3);
-                ff1.getFalling_tiles().set(3, FallingTile4);
-                ff1.getFalling_tiles().set(4, FallingTile5);
+                ff2 = game_obj.getFf2();
+                ff2.setFalling_tiles(new ArrayList<ImageView>(5));
+                ff1.getFalling_tiles().add(FallingTile6);
+                ff1.getFalling_tiles().add(FallingTile7);
+                ff1.getFalling_tiles().add(FallingTile8);
+                ff1.getFalling_tiles().add(FallingTile9);
+                ff1.getFalling_tiles().add(FallingTile10);
 
-                ff1.getFalling_tiles().set(5, FallingTile6);
-                ff1.getFalling_tiles().set(6, FallingTile7);
-                ff1.getFalling_tiles().set(7, FallingTile8);
-                ff1.getFalling_tiles().set(8, FallingTile9);
-                ff1.getFalling_tiles().set(9, FallingTile10);
-
-
+                weapon1 = game_obj.getWeapon1();
                 weapon1.setGobj(weapon);
-                weapon1.setDamage(Game.getWeapon1().getDamage());
-                weapon1.setLevel(Game.getWeapon1().getLevel());
+                weapon1.setDamage(game_obj.getWeapon1().getDamage());
+                weapon1.setLevel(game_obj.getWeapon1().getLevel());
                 weapon1.setWeaponNumber(0);
 
+                weapon2 = game_obj.getWeapon2();
                 weapon2.setGobj(weapon);
-                weapon2.setDamage(Game.getWeapon2().getDamage());
-                weapon2.setLevel(Game.getWeapon2().getLevel());
+                weapon2.setDamage(game_obj.getWeapon2().getDamage());
+                weapon2.setLevel(game_obj.getWeapon2().getLevel());
                 weapon2.setWeaponNumber(1);
 
-                weaponsList.set(0, weapon1);
-                weaponsList.set(1, weapon2);
+                weaponsList = game_obj.getWeaponsList();
+                weaponsList.add(weapon1);
+                weaponsList.add(weapon2);
 
+                coin = game_obj.getCoin();
                 coin.setGobj(coinImage);
-                coin.setCoinCount(Game.getCoin().getCoinCount());
+                coin.setCoinCount(game_obj.getCoin().getCoinCount());
+                coin_count.setText(String.valueOf(coin.getCoinCount()));
 
+                player = game_obj.getPlayer();
+                player.setX_Coordinate(game_obj.getPlayer().getX_Coordinate());
+                player.setY_Coordinate(game_obj.getPlayer().getY_Coordinate());
                 player.setGobj(hero);
-                player.setCoin(Game.getPlayer().getCoin());
-                player.setJumpDistance(Game.getPlayer().getJumpDistance());
-                player.setJumpHeight(Game.getPlayer().getJumpHeight());
-                player.setHelmet(Game.getPlayer().getHelmet());
-                player.setCoin_count_2(Game.getPlayer().getCoin_count_2());
-                player.setWeaponsList(weaponsList,1);
+//                player.setCoin(game_obj.getPlayer().getCoin());
+//                player.setJumpDistance(game_obj.getPlayer().getJumpDistance());
+//                player.setJumpHeight(game_obj.getPlayer().getJumpHeight());
+//                player.setHelmet(game_obj.getPlayer().getHelmet());
+//                player.setCoin_count_2(game_obj.getPlayer().getCoin_count_2());
+//                player.setWeaponsList(weaponsList,1);
+
+                group_X = game_obj.getGroup_X();
+                TranslateTransition translate_object1 = translate_an_object(group_game, group_X,0 , 5);
+                translate_object1.play();
+                distance.setText(String.valueOf(player.getScore()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
         FadeTransition fade_obj = new FadeTransition();
         fade_obj.setDuration(Duration.millis(1));
         fade_obj.setToValue(0);

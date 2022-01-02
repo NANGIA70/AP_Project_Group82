@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class FallingFloor extends GameObject{
     private float rateOfFalling;
     private int numOfTiles = 5;
-    private ArrayList<ImageView> falling_tiles = new ArrayList<ImageView>(numOfTiles);
+    private transient ArrayList<ImageView> falling_tiles = new ArrayList<ImageView>(numOfTiles);
     boolean fall_floor_start = false;
     public FallingFloor(ImageView fallTile) {
         super(fallTile);
@@ -32,6 +32,10 @@ public class FallingFloor extends GameObject{
     public  ArrayList<ImageView> getFalling_tiles()
     {
         return falling_tiles;
+    }
+
+    public void setFalling_tiles(ArrayList<ImageView> falling_tiles) {
+        this.falling_tiles = falling_tiles;
     }
 
     @Override

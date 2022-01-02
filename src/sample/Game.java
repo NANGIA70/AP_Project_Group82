@@ -6,44 +6,72 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Game implements Serializable {
-    private static Coin coin;
-    private static Weapon1 weapon1;
-    private static  Weapon2 weapon2;
-    private static Player player;
-    private static BossOrc boss;
-    private static ArrayList<Island> islandsArrayList = new ArrayList<Island>();
-    private static ArrayList<Orc> orcArrayList = new ArrayList<Orc>();
-    private static ArrayList<TreasureChest> treasureChestArrayList = new ArrayList<TreasureChest>();
-    private static ArrayList<Weapon> weaponsList = new ArrayList<Weapon>();
-    private static FallingFloor ff1;
-    private static FallingFloor ff2;
-    private static Helmet helmet;
-    private static transient AnchorPane content;
+    private double group_X;
+    private double group_Y;
+    private Coin coin;
+    private Weapon1 weapon1;
+    private Weapon2 weapon2;
+    private Player player;
+    private BossOrc boss;
+    private ArrayList<Island> islandsArrayList = new ArrayList<Island>();
+    private ArrayList<Orc> orcArrayList = new ArrayList<Orc>();
+    private ArrayList<TreasureChest> treasureChestArrayList = new ArrayList<TreasureChest>();
+    private ArrayList<Weapon> weaponsList = new ArrayList<Weapon>();
+    private FallingFloor ff1;
+    private FallingFloor ff2;
+    private Helmet helmet;
+    private transient AnchorPane content;
 
-    public Game(FallingFloor ff1, FallingFloor ff2, Helmet helmet, ArrayList<Island> islandsArrayList, ArrayList<Orc> orcArrayList, ArrayList<TreasureChest> treasureChestArrayList, ArrayList<Weapon> weaponsList,AnchorPane content, Coin coin, Weapon1 weapon1, Weapon2 weapon2, Player player, BossOrc boss) {
-        Game.content = content;
-        Game.coin = coin;
-        Game.weapon1 = weapon1;
-        Game.weapon2 = weapon2;
-        Game.player = player;
-        Game.boss = boss;
+    public double getGroup_X() {
+        return group_X;
     }
 
-    public void serialize() throws IOException {
+    public void setGroup_X(double group_X) {
+        this.group_X = group_X;
+    }
+
+    public double getGroup_Y() {
+        return group_Y;
+    }
+
+    public void setGroup_Y(double group_Y) {
+        this.group_Y = group_Y;
+    }
+
+    public Game(double group_X, double group_Y, FallingFloor ff1, FallingFloor ff2, Helmet helmet, ArrayList<Island> islandsArrayList, ArrayList<Orc> orcArrayList, ArrayList<TreasureChest> treasureChestArrayList, ArrayList<Weapon> weaponsList, AnchorPane content, Coin coin, Weapon1 weapon1, Weapon2 weapon2, Player player, BossOrc boss) {
+        this.group_X = group_X;
+        this.group_Y = group_Y;
+        this.ff1 = ff1;
+        this.ff2 = ff2;
+        this.helmet = helmet;
+        this.islandsArrayList = islandsArrayList;
+        this.orcArrayList = orcArrayList;
+        this.weaponsList = weaponsList;
+        this.treasureChestArrayList = treasureChestArrayList;
+        this.content = content;
+        this.coin = coin;
+        this.weapon1 = weapon1;
+        this.weapon2 = weapon2;
+        this.player = player;
+        this.boss = boss;
+    }
+
+    public static void serialize(Game gameo) throws IOException {
         ObjectOutputStream out = null;
         try {
             out = new ObjectOutputStream(new FileOutputStream("GameObject.txt"));
-            out.writeObject(this);
+            out.writeObject(gameo);
         }
         catch (Exception e) {
-//
+            System.out.println(e.getMessage());
+            System.out.println("Hello exception");
         }
         finally {
             out.close();
         }
     }
 
-    public Game deserialize() throws IOException {
+    public static Game deserialize() throws IOException {
         ObjectInputStream in = null;
         Game gameOld = null;
         try {
@@ -59,107 +87,107 @@ public class Game implements Serializable {
         return gameOld;
     }
 
-    public static Coin getCoin() {
+    public Coin getCoin() {
         return coin;
     }
 
-    public static void setCoin(Coin coin) {
-        Game.coin = coin;
-    }
-
-    public static Weapon1 getWeapon1() {
+    public Weapon1 getWeapon1() {
         return weapon1;
     }
 
-    public static void setWeapon1(Weapon1 weapon1) {
-        Game.weapon1 = weapon1;
-    }
-
-    public static Weapon2 getWeapon2() {
+    public Weapon2 getWeapon2() {
         return weapon2;
     }
 
-    public static void setWeapon2(Weapon2 weapon2) {
-        Game.weapon2 = weapon2;
-    }
-
-    public static Player getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 
-    public static void setPlayer(Player player) {
-        Game.player = player;
-    }
-
-    public static BossOrc getBoss() {
+    public BossOrc getBoss() {
         return boss;
     }
 
-    public static void setBoss(BossOrc boss) {
-        Game.boss = boss;
-    }
-
-    public static ArrayList<Island> getIslandsArrayList() {
+    public ArrayList<Island> getIslandsArrayList() {
         return islandsArrayList;
     }
 
-    public static void setIslandsArrayList(ArrayList<Island> islandsArrayList) {
-        Game.islandsArrayList = islandsArrayList;
-    }
-
-    public static ArrayList<Orc> getOrcArrayList() {
+    public ArrayList<Orc> getOrcArrayList() {
         return orcArrayList;
     }
 
-    public static void setOrcArrayList(ArrayList<Orc> orcArrayList) {
-        Game.orcArrayList = orcArrayList;
-    }
-
-    public static ArrayList<TreasureChest> getTreasureChestArrayList() {
+    public ArrayList<TreasureChest> getTreasureChestArrayList() {
         return treasureChestArrayList;
     }
 
-    public static void setTreasureChestArrayList(ArrayList<TreasureChest> treasureChestArrayList) {
-        Game.treasureChestArrayList = treasureChestArrayList;
-    }
-
-    public static ArrayList<Weapon> getWeaponsList() {
+    public ArrayList<Weapon> getWeaponsList() {
         return weaponsList;
     }
 
-    public static void setWeaponsList(ArrayList<Weapon> weaponsList) {
-        Game.weaponsList = weaponsList;
-    }
-
-    public static FallingFloor getFf1() {
+    public FallingFloor getFf1() {
         return ff1;
     }
 
-    public static void setFf1(FallingFloor ff1) {
-        Game.ff1 = ff1;
-    }
-
-    public static FallingFloor getFf2() {
+    public FallingFloor getFf2() {
         return ff2;
     }
 
-    public static void setFf2(FallingFloor ff2) {
-        Game.ff2 = ff2;
-    }
-
-    public static Helmet getHelmet() {
+    public Helmet getHelmet() {
         return helmet;
     }
 
-    public static void setHelmet(Helmet helmet) {
-        Game.helmet = helmet;
-    }
-
-    public static AnchorPane getContent() {
+    public AnchorPane getContent() {
         return content;
     }
 
-    public static void setContent(AnchorPane content) {
-        Game.content = content;
+    public void setCoin(Coin coin) {
+        this.coin = coin;
+    }
+
+    public void setWeapon1(Weapon1 weapon1) {
+        this.weapon1 = weapon1;
+    }
+
+    public void setWeapon2(Weapon2 weapon2) {
+        this.weapon2 = weapon2;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public void setBoss(BossOrc boss) {
+        this.boss = boss;
+    }
+
+    public void setIslandsArrayList(ArrayList<Island> islandsArrayList) {
+        this.islandsArrayList = islandsArrayList;
+    }
+
+    public void setOrcArrayList(ArrayList<Orc> orcArrayList) {
+        this.orcArrayList = orcArrayList;
+    }
+
+    public void setTreasureChestArrayList(ArrayList<TreasureChest> treasureChestArrayList) {
+        this.treasureChestArrayList = treasureChestArrayList;
+    }
+
+    public void setWeaponsList(ArrayList<Weapon> weaponsList) {
+        this.weaponsList = weaponsList;
+    }
+
+    public void setFf1(FallingFloor ff1) {
+        this.ff1 = ff1;
+    }
+
+    public void setFf2(FallingFloor ff2) {
+        this.ff2 = ff2;
+    }
+
+    public void setHelmet(Helmet helmet) {
+        this.helmet = helmet;
+    }
+
+    public void setContent(AnchorPane content) {
+        this.content = content;
     }
 }
