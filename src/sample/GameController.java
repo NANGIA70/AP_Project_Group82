@@ -531,6 +531,4 @@ public class GameController implements Initializable, Serializable {
         fade_obj.play();
         startPlay();
     }
-
-
 }

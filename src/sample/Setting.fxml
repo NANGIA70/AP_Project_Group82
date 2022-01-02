@@ -24,7 +24,7 @@
                         <Image url="@../assets/assets/Resume.jpg" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="save" fitHeight="150.0" fitWidth="200.0" layoutX="-37.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="save" fitHeight="150.0" fitWidth="200.0" layoutX="-37.0" layoutY="150.0" onMouseClicked="#save_action" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../assets/assets/Save.jpg" />
                     </image>

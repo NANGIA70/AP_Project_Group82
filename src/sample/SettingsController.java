@@ -42,6 +42,14 @@ public class SettingsController {
         stage.show();
     }
 
+    public void save_action(javafx.scene.input.MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("SavePage.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root, 1200, 645);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     public void quit_action(javafx.scene.input.MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -49,4 +57,5 @@ public class SettingsController {
         stage.setScene(scene);
         stage.show();
     }
+
 }
