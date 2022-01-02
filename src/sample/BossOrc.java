@@ -18,9 +18,11 @@ public class BossOrc extends Orc {
     private boolean check_if_boss_hit = false;
     private boolean boss_dead = false;
     private boolean player_dead = false;
-    public BossOrc(ImageView orc,int healthpoints)
+    private transient GameController controller;
+    public BossOrc(ImageView orc,int healthpoints,GameController controller)
     {
         super(orc,healthpoints);
+        this.controller = controller;
     }
     public void moveBoss(AnchorPane content, ArrayList<Island> islandsArrayList, Group group_game, Group group_hero,Player player,ImageView exit) {
         if(boss_dead == true)
@@ -177,6 +179,7 @@ public class BossOrc extends Orc {
     }
     public void game_over(AnchorPane content) throws IOException
     {
+        controller.setStart();
         Parent root = FXMLLoader.load(getClass().getResource("WinPage.fxml"));
         content.getChildren().setAll(root);
     }

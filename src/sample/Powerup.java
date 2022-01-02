@@ -11,6 +11,15 @@ public class Powerup extends GameObject
     private int increase_horizontal_jump;
     private int increase_vertical_jump;
     private int duration;
+
+    public boolean isCollision_done() {
+        return collision_done;
+    }
+
+    public void setCollision_done(boolean collision_done) {
+        this.collision_done = collision_done;
+    }
+
     private boolean collision_done = false;
     public Powerup(ImageView powerview,int powerup_number,int xjump, int yjump,int duration) {
         super(powerview);

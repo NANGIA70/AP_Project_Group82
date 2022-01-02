@@ -396,29 +396,5 @@
                 </Label>
             </children>
         </Group>
-        <Group fx:id="pause_menu2" layoutX="544.0" layoutY="709.0" scaleX="1.25" scaleY="1.25" scaleZ="1.25">
-            <children>
-                <ImageView fx:id="Menu_background" fitHeight="372.0" fitWidth="261.0" layoutX="-66.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../assets/assets/Menu_background.jpg" />
-                    </image>
-                </ImageView>
-                <ImageView fx:id="resume" fitHeight="150.0" fitWidth="200.0" layoutX="-36.0" layoutY="56.0" onMouseClicked="#resume_action" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../assets/assets/Resume.jpg" />
-                    </image>
-                </ImageView>
-                <ImageView fx:id="save" fitHeight="150.0" fitWidth="200.0" layoutX="-37.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../assets/assets/Save.jpg" />
-                    </image>
-                </ImageView>
-                <ImageView fx:id="quit" fitHeight="73.0" fitWidth="200.0" layoutX="-36.0" layoutY="244.0" onMouseClicked="#quit_action" onMousePressed="#quit_action" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../assets/assets/Quit.jpg" />
-                    </image>
-                </ImageView>
-            </children>
-        </Group>
     </children>
 </AnchorPane>

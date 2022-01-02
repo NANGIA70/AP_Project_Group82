@@ -5,12 +5,14 @@ import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-public abstract class GameObject implements Movable, Collision{
+import java.io.Serializable;
+
+public abstract class GameObject implements Movable, Collision, Serializable {
     protected double x_Coordinate;
     protected double y_Coordinate;
     protected float x_Speed;
     protected float y_Speed;
-    protected ImageView Gobj;
+    protected transient ImageView Gobj;
 
     public GameObject(/*float x_Coordinate, float y_Coordinate, float x_Speed, float y_Speed, */ImageView gobj) {
         this.Gobj = gobj;

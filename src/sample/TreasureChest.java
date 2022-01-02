@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 
 public abstract class TreasureChest extends GameObject{
+    protected boolean chestOpen = false;
     public TreasureChest(ImageView chest) {
         super(chest);
     }
@@ -17,5 +18,13 @@ public abstract class TreasureChest extends GameObject{
         translate_object.setAutoReverse(true);
         translate_object.setCycleCount(Timeline.INDEFINITE);
         translate_object.play();
+    }
+
+    public boolean isChestOpen() {
+        return chestOpen;
+    }
+
+    public void setChestOpen(boolean chestOpen) {
+        this.chestOpen = chestOpen;
     }
 }

@@ -8,6 +8,15 @@ import javafx.util.Duration;
 
 public class Coin extends GameObject{
     private int coinCount;
+
+    public boolean isCollision_done() {
+        return collision_done;
+    }
+
+    public void setCollision_done(boolean collision_done) {
+        this.collision_done = collision_done;
+    }
+
     private boolean collision_done = false;
     public Coin(/*float x_Coordinate, float y_Coordinate, float x_Speed, float y_Speed,*/ int coinCount, ImageView coin) {
 //        super(x_Coordinate, y_Coordinate, x_Speed, y_Speed);

@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class WinController {
+public class OverController {
     private Stage stage;
     private Scene scene;
     @FXML
@@ -20,16 +20,16 @@ public class WinController {
 
     @FXML
     private Group group1;
+
     @FXML
     private ImageView background;
     @FXML
-    private ImageView winBackground;
+    private ImageView overBackground;
     @FXML
     private ImageView homeImage;
 
 
-    public void homeAction(javafx.scene.input.MouseEvent event) throws IOException
-    {
+    public void homeAction(javafx.scene.input.MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root, 1200, 645);

@@ -71,7 +71,7 @@ public class HomeController implements Initializable {
     private ImageView exit;
     @FXML
     private ImageView coin;
-
+    private transient GameController controller;
 
     @FXML
     private Group group_game;
@@ -81,61 +81,25 @@ public class HomeController implements Initializable {
     @FXML
     private Label coin_count;
 
-
-//    Function to create required translate transition object
-    public static TranslateTransition translate_an_object(Node obj, double x_cord, double y_cord, int duration_set) {
-        Duration animation_time = Duration.millis(duration_set);
-        TranslateTransition translate_object = new TranslateTransition();
-        translate_object.setDuration(animation_time);
-        translate_object.setNode(obj);
-        translate_object.setByX(x_cord);
-        translate_object.setByY(y_cord);
-        return translate_object;
-    }
-
 //    Function to close the game
     public  void exit_game() {
         javafx.application.Platform.exit();
     }
 
-//    Function to move hero on mouse click
-    public void move_ClickHero() {
-        if(flag && !pause_flag) {
-//            Move hero forward
-            TranslateTransition translate_object = translate_an_object(hero, 100, 0, 500);
-            translate_object.play();
-
-//            Update distance
-            count+=1;
-            distance.setText(String.valueOf(count));
-
-//            Open Chest
-            if(hero.getBoundsInParent().intersects(chest.getBoundsInParent()) && !chest_open) {
-//               Update chest status
-                chest_open = true;
-
-//                Update coinCount(Add coins)
-                Random rand = new Random();
-                coinCount += (1 + rand.nextInt(6));
-                coin_count.setText(String.valueOf(coinCount));
-
-//                Change chest image
-                File file = new File("src/sample/ChestOpen.png");
-                chest.setImage(new Image(file.toURI().toString()));
-
-            }
-        }
-    }
-
-//    Function to start the game
-    public void startPlay(javafx.scene.input.MouseEvent event) throws IOException {
+    public void startPlay(javafx.scene.input.MouseEvent event) throws IOException
+    {
         Parent root = FXMLLoader.load(getClass().getResource("GamePage.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root, 1200, 645);
         stage.setScene(scene);
         stage.show();
     }
-
+    public  void load_game() throws IOException {
+        controller = new GameController();
+        controller.setStart_false();
+        Parent root = FXMLLoader.load(getClass().getResource("GamePage.fxml"));
+        content.getChildren().setAll(root);
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 

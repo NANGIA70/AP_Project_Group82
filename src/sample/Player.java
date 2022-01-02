@@ -18,22 +18,38 @@ public class Player extends GameObject{
     private Helmet helmet;
     private Coin coin;
     private int score = 0;
-    private Label coin_count_2;
+
+    public Label getCoin_count_2()
+    {
+        return coin_count_2;
+    }
+
+    public void setCoin_count_2(Label coin_count_2) {
+        this.coin_count_2 = coin_count_2;
+    }
+
+    private transient Label coin_count_2;
     private boolean move_click_hero_in_use = false;
     private boolean hasweapon = false;
     private boolean revive = false;
     private boolean has_reached_boss = false;
     private boolean has_weapon1 = false;
     private boolean has_weapon2 = false;
-    private GameController  controller;
+
+    public void setController(GameController controller) {
+        this.controller = controller;
+    }
+
+    private transient GameController  controller;
     private int xmultiplier = 1;
     private int ymultiplier = 1;
     private int tracker_for_powerup_duration = 0;
     private boolean x_power_up_in_use = false;
     private boolean player_dead = false;
-    private TranslateTransition translate_object_player;
     private boolean player_to_be_revived = false;
     private boolean player_can_be_moved = true;
+    private double group_X;
+    private double group_Y;
     public boolean get_has_weapon1()
     {
         return has_weapon1;
@@ -58,8 +74,9 @@ public class Player extends GameObject{
         this.coin = coin;
         this.controller = contoller;
         this.coin_count_2 = coin_count_2;
+        group_X = 0;
+        group_Y = 0;
     }
-
     @Override
     public boolean collision(GameObject obj, Group group_game, Group group_hero) {
 //        implement collision with everyone
@@ -159,7 +176,6 @@ public class Player extends GameObject{
         }
         final Timeline timeline = new Timeline();
         TranslateTransition translate_object = translate_an_object(group_hero, 0, -100 * ymultiplier, 1000);
-        translate_object_player = translate_object;
         this.setY_Coordinate(this.getY_Coordinate() + 100);
         translate_object.setOnFinished(e -> hero_fall_down(content, islandsArrayList, ff1, ff2, group_game, group_hero, exit, coin_count,  orcArrayList,  treasureChestArrayList,boss,coinArrayList,powerupArrayList));
         translate_object.play();
@@ -192,6 +208,7 @@ public class Player extends GameObject{
         }
         if(check_island_collision(islandsArrayList, group_game, group_hero) || check_falling_floor_collision(ff1, group_game, group_hero) || check_falling_floor_collision(ff2, group_game, group_hero)) {
             if(!ff1.get_fall_floor_boolean() && check_falling_floor_collision(ff1, group_game, group_hero)) {
+
                 ff1.fallStart(0);
                 ff1.set_fall_floor_boolean();
             }
@@ -248,6 +265,7 @@ public class Player extends GameObject{
                 boss.move_();
             }
             TranslateTransition translate_object1 = translate_an_object(group_game, -1 * xmultiplier,0 , 5);
+            group_X += -1 * xmultiplier;
             this.setX_Coordinate(this.getX_Coordinate() + 1);
             translate_object1.setOnFinished(e -> move_hero_small(number - 1, coin_count, orcArrayList, treasureChestArrayList, group_game, group_hero,boss,coinArrayList,powerupArrayList));
             translate_object1.play();
@@ -288,6 +306,7 @@ public class Player extends GameObject{
 
             TranslateTransition translate_object1 = translate_an_object(group_game, -1 * xmultiplier,0 , 5);
             this.setX_Coordinate(this.getX_Coordinate() + 1);
+            group_X += -1 * xmultiplier;
             translate_object1.setOnFinished(e -> move_hero_small(100, coin_count, orcArrayList, treasureChestArrayList, group_game, group_hero,boss,coinArrayList,powerupArrayList));
             translate_object1.play();
 
@@ -457,4 +476,27 @@ public class Player extends GameObject{
         player_can_be_moved = true;
     }
 
+    public double getGroup_X() {
+        return group_X;
+    }
+
+    public void setGroup_X(double group_X) {
+        this.group_X = group_X;
+    }
+
+    public boolean isPlayer_can_be_moved() {
+        return player_can_be_moved;
+    }
+
+    public void setPlayer_can_be_moved(boolean player_can_be_moved) {
+        this.player_can_be_moved = player_can_be_moved;
+    }
+
+    public double getGroup_Y() {
+        return group_Y;
+    }
+
+    public void setGroup_Y(double group_Y) {
+        this.group_Y = group_Y;
+    }
 }

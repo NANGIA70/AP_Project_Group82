@@ -161,4 +161,12 @@ public abstract class Orc extends GameObject{
     {
         this.healthpoints = health;
     }
+
+    public boolean isOrc_dead() {
+        return orc_dead;
+    }
+
+    public void setOrc_dead(boolean orc_dead) {
+        this.orc_dead = orc_dead;
+    }
 }
